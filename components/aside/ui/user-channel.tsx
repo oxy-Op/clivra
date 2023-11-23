@@ -20,13 +20,13 @@ const UserMenu = ({
       )}
       tabIndex={0}
     >
-      <div className="relative">
+      <div className="relative w-[32px] h-[32px]">
         <Image
           className="rounded-full"
           src={icon || "/user_placeholder.png"}
           alt={label || "user"}
-          width={32}
-          height={32}
+          fill
+          sizes="32px"
           quality={100}
         />
         <span

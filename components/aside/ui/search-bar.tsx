@@ -30,31 +30,33 @@ const SearchBar = ({ users }: { users: string[] }) => {
   return (
     <div className="w-full">
       <Button
-        className="w-full mt-2 gap-x-2"
+        className="w-full mt-2 gap-x-2 relative"
         variant={"outline"}
         onClick={() => setOpen((open) => !open)}
       >
-        <Search className="w-4 h-4" />
-        <span>Search People</span>
+        <div className="me-auto ms-2 flex justify-center items-center gap-x-2">
+          <Search className="w-4 h-4" />
+          <span>Search People</span>
+        </div>
+        <span className="hidden lg:block text-xs absolute top-2 right-2">
+          <kbd className="text-xs ms-auto"> CTRL + K</kbd>
+        </span>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Search People" />
         <CommandList className="w-full">
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="People">
-            {users.map((user: any) => (
-              <>
-                <CommandItem key={user.id}>
-                  <UserMenu
-                    icon={user.imageUrl}
-                    label={
-                      user.username || user.firstName + " " + user.lastName
-                    }
-                    status="active"
-                    className="mt-0 p-0"
-                  />
-                </CommandItem>
-              </>
+            {users?.map((user: any) => (
+              <CommandItem key={user.id}>
+                <UserMenu
+                  key={user.id}
+                  icon={user.image}
+                  label={user.name}
+                  status="active"
+                  className="mt-0 p-0"
+                />
+              </CommandItem>
             ))}
           </CommandGroup>
         </CommandList>

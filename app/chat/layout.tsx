@@ -1,20 +1,30 @@
-import Header from "@/components/header/Header";
-import NavBar from "@/components/navigation/nav-menu";
+"use client";
+
+import AsideBar from "@/components/aside/aside-sidebar";
+import GlobalChat from "@/components/aside/ui/global-channel";
+import { Separator } from "@/components/ui/separator";
+import { usePathname } from "next/navigation";
 
 export default function ChatLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
-    <div className="h-full">
-      <Header />
-      <div className="md:flex p-2 md:ps-16 lg:ps-36 space-x-4 h-[calc(100%-65.6px)] min-h-[200px]">
-        <>
-          <NavBar />
-          {children}
-        </>
-      </div>
-    </div>
+    <>
+      <AsideBar>
+        <GlobalChat isActive={pathname === "/chat/global"} />
+        <Separator className="mt-1" />
+        <p className="text-xs me-auto mt-2 ms-1 text-zinc-400 font-semibold">
+          Conversations
+        </p>
+        <p className="text-center text-xs  my-auto text-zinc-400">
+          Conversations started with people will appear here
+        </p>
+      </AsideBar>
+      {children}
+    </>
   );
 }

@@ -16,8 +16,6 @@ export type ChatItemProps = {
 
 export type User = {
   id: string
-  imageUrl?: string;
-  firstName?: string | null;
-  lastName?: string | null;
-  username?: string | null;
+  image?: string;
+  name?: string;
 };

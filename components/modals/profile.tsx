@@ -1,6 +1,5 @@
 "use client";
 
-import { UserMenuProps } from "@/lib/types";
 import {
   Dialog,
   DialogContent,

@@ -1,4 +1,4 @@
-import UserMenu from "@/components/navigation/ui/user-channel";
+import UserMenu from "@/components/aside/ui/user-channel";
 import { UserMenuProps } from "@/lib/types";
 import { Globe, MoreVertical } from "lucide-react";
 import {

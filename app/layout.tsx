@@ -6,6 +6,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
+import Header from "@/components/header/Header";
+import NavSideBar from "@/components/navigation/nav-sidebar";
+import MobileNavBar from "@/components/navigation/mobile-navbar";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
@@ -21,11 +24,23 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={cn(open_sans.className, "")}>
+      <html lang="en" suppressHydrationWarning={true}>
+        <body
+          suppressHydrationWarning={true}
+          className={cn(open_sans.className, "")}
+        >
           <ThemeProvider attribute="class" enableSystem defaultTheme="system">
             <ModalProvider />
-            <QueryProvider>{children}</QueryProvider>
+            <QueryProvider>
+              <div className="h-full">
+                <Header />
+                <div className="md:flex p-2 lg:space-x-4 md:space-x-2 h-[calc(100%-131.2px)] lg:h-[calc(100%-65.6px)] min-h-[200px]">
+                  <NavSideBar />
+                  {children}
+                </div>
+                <MobileNavBar />
+              </div>
+            </QueryProvider>
           </ThemeProvider>
         </body>
       </html>
