@@ -1,7 +1,8 @@
 export type UserMenuProps = {
   icon?: string;
   label?: string;
-  status: "active" | "offline";
+  isActive?: boolean;
+  status?: "active" | "offline";
   className?: string;
 };
 
@@ -11,7 +12,6 @@ export type ChatItemProps = {
   label: string;
   content: string;
   time: string;
-  status: "active" | "offline";
 }
 
 export type User = {

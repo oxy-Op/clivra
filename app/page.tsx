@@ -1,14 +1,15 @@
-import { currentUser, redirectToSignIn } from "@clerk/nextjs";
+import { initialProfile } from "@/lib/initial-profile";
+import { redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-const IsLogged = () => {
-  const user = currentUser();
+const IsLogged = async () => {
+  const profile = await initialProfile();
 
-  if (!user) {
-    redirectToSignIn();
+  if (!profile) {
+    return redirectToSignIn();
   }
 
-  return redirect("/chats");
+  redirect("/chat");
 };
 
 export default IsLogged;

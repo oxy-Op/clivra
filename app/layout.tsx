@@ -4,11 +4,13 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
+import { ModalProvider } from "@/components/providers/modal-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Chat App",
+  title: "Clivra - Chat App",
   description: "Chat with your friends, family and the world",
 };
 
@@ -22,7 +24,8 @@ export default function RootLayout({
       <html lang="en">
         <body className={cn(open_sans.className, "")}>
           <ThemeProvider attribute="class" enableSystem defaultTheme="system">
-            {children}
+            <ModalProvider />
+            <QueryProvider>{children}</QueryProvider>
           </ThemeProvider>
         </body>
       </html>

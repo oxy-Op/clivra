@@ -1,16 +1,26 @@
 import ChatItem from "./chat-item";
 
-const Chat = () => {
+type ChatProps = {
+  id: string;
+  icon: string;
+  label: string;
+  content: string;
+  time: string;
+};
+
+const Chat = ({ chat }: { chat: ChatProps[] }) => {
   return (
     <div className="flex flex-col grow">
-      <ChatItem
-        id="1"
-        icon="/mikasa.png"
-        label="Mikasa"
-        content="hi"
-        time="10:00"
-        status="active"
-      />
+      {chat.map((item: ChatProps) => (
+        <ChatItem
+          key={item.id}
+          id={item.id}
+          icon={item.icon}
+          label={item.label}
+          content={item.content}
+          time={item.time}
+        />
+      ))}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import { users } from "@/hooks/getUsers";
 import { User } from "@/lib/types";
 import { NextResponse } from "next/server";
 import { Clerk } from "@clerk/backend";
@@ -15,7 +14,7 @@ export async function GET() {
             return {
                 id,
                 firstName,
-                lastName,
+                lastName: lastName || "",
                 username,
                 imageUrl
             }

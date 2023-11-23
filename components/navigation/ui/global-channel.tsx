@@ -1,10 +1,21 @@
+import { cn } from "@/lib/utils";
 import { Globe } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-const GlobalChat = () => {
+const GlobalChat = ({ isActive }: { isActive: boolean }) => {
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push("/chat/global");
+  };
+
   return (
     <div
-      className="flex items-center cursor-pointer w-full p-3 bg-[#f3f2e9] dark:bg-[#141414]
-    hover:bg-[#e6e5d8] dark:hover:bg-[#2c2c2c] transition rounded-[12px] mb-2"
+      className={cn(
+        "flex items-center cursor-pointer w-full p-3 bg-[#ffffff] dark:bg-[#141414] hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] transition rounded-[12px] mb-2",
+        isActive && "bg-[#dcdcdc] dark:bg-[#2c2c2c]"
+      )}
+      onClick={handleClick}
     >
       <div className="rounded-full ">
         <Globe className="w-6 h-6" />

@@ -1,43 +1,64 @@
+"use client";
+
 import {
-  Command,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 import UserMenu from "./user-channel";
-import { User, UserMenuProps } from "@/lib/types";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Search } from "lucide-react";
 
 const SearchBar = ({ users }: { users: string[] }) => {
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen((open) => !open);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
+
   return (
-    <div className="mt-auto w-full">
-      <Command>
-        <CommandInput placeholder="Search User" />
-        <CommandList>
+    <div className="w-full">
+      <Button
+        className="w-full mt-2 gap-x-2"
+        variant={"outline"}
+        onClick={() => setOpen((open) => !open)}
+      >
+        <Search className="w-4 h-4" />
+        <span>Search People</span>
+      </Button>
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Search People" />
+        <CommandList className="w-full">
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Users">
+          <CommandGroup heading="People">
             {users.map((user: any) => (
               <>
-                <CommandItem>
+                <CommandItem key={user.id}>
                   <UserMenu
-                    key={user.username}
                     icon={user.imageUrl}
                     label={
                       user.username || user.firstName + " " + user.lastName
                     }
                     status="active"
-                    className="p-0 mt-0"
+                    className="mt-0 p-0"
                   />
                 </CommandItem>
               </>
             ))}
           </CommandGroup>
         </CommandList>
-      </Command>
+      </CommandDialog>
     </div>
   );
 };
