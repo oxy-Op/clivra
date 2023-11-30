@@ -1,22 +1,48 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { UserMenuProps } from "@/lib/types";
+import { useCallback, useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const UserMenu = ({
+  id,
   icon,
   label,
   status,
   isActive,
   className,
+  status_text,
 }: UserMenuProps) => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleClick = useCallback(() => {
+    setLoading(true);
+    axios
+      .post("/api/conversations", {
+        userId: id,
+      })
+      .then((data) => {
+        router.push(`/chat/${data.data.id}`);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [router, id]);
+
   return (
     <div
       role="button"
+      onClick={handleClick}
       aria-label={`Chat with ${label}`}
       className={cn(
         "flex cursor-pointer w-full items-center  py-1 ps-2 mt-1 p-2",
         className,
-        isActive && "bg-[#c8c7b9] dark:bg-[#2c2c2c]"
+        isActive && "bg-[#c8c8c5] dark:bg-[#2c2c2c]",
+        loading && "pointer-events-none"
       )}
       tabIndex={0}
     >
@@ -36,8 +62,13 @@ const UserMenu = ({
           )}
         ></span>
       </div>
-      <div className="ms-3">
-        <span>{label}</span>
+      <div className="flex flex-col ms-3 max-w-[150px]">
+        <span className={cn(loading && "animate-pulse")}>{label}</span>
+        {status_text && (
+          <span className="text-xs text-zinc-800 dark:text-neutral-500 font-semibold truncate">
+            {status_text}
+          </span>
+        )}
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ type HeaderProps = {
 };
 
 const ChatHeader = ({
+  id,
   icon,
   label,
   status,
@@ -23,6 +24,7 @@ const ChatHeader = ({
       {type === "user" && (
         <>
           <UserMenu
+            id={id}
             icon={icon}
             label={label}
             status={status}

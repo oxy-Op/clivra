@@ -1,9 +1,13 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Globe } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
-const GlobalChat = ({ isActive }: { isActive: boolean }) => {
+const GlobalChat = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  const isActive = pathname === "/chat/global";
 
   const handleClick = () => {
     router.push("/chat/global");
@@ -12,7 +16,7 @@ const GlobalChat = ({ isActive }: { isActive: boolean }) => {
   return (
     <div
       className={cn(
-        "flex items-center cursor-pointer w-full p-3 bg-[#ffffff] dark:bg-[#141414] hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] transition rounded-[12px] mb-2",
+        "flex items-center cursor-pointer w-full p-3 bg-[#a3a3a3] dark:bg-[#141414] hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] transition rounded-[12px] mb-2 ",
         isActive && "bg-[#dcdcdc] dark:bg-[#2c2c2c]"
       )}
       onClick={handleClick}

@@ -1,29 +1,21 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
 import GotoChat from "./ui/goto-chat";
 import GoToSearch from "./ui/goto-search";
+import { ModeToggle } from "../mode-toggle";
 
 const NavSideBar = () => {
-  const pathname = usePathname();
-  const router = useRouter();
-
-  const isActive = (path: string) => {
-    if (pathname === path) {
-      return true;
-    }
-  };
-
   return (
-    <nav className="hidden lg:flex flex-col items-center w-[72px] h-full border p-4 space-y-4">
-      <GotoChat
-        isActive={isActive("/chat")}
-        handleClick={() => router.push("/chat")}
-      />
-      <GoToSearch
-        isActive={isActive("/search")}
-        handleClick={() => router.push("/search")}
-      />
+    <nav className="hidden md:flex flex-col items-center w-[72px] h-full border p-4">
+      <div className="flex flex-col space-y-4">
+        <GotoChat />
+        <GoToSearch />
+      </div>
+      <div className="mt-auto flex flex-col space-y-4  mb-2 ">
+        <ModeToggle />
+        <UserButton afterSignOutUrl="/" />
+      </div>
     </nav>
   );
 };

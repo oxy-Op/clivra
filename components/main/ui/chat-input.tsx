@@ -17,12 +17,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import axios from "axios";
 
 const formSchema = z.object({
   content: z.string().min(1),
 });
 
-const ChatInput = () => {
+const ChatInput = ({ conversationId }: { conversationId: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -30,7 +31,14 @@ const ChatInput = () => {
     },
   });
 
+  const loading = form.formState.isSubmitting;
+
   function onSubmit(values: z.infer<typeof formSchema>) {
+    axios.post("/api/messages", {
+      text: values.content,
+      image: "",
+      conversationId: conversationId,
+    });
     form.reset();
     console.log(values);
   }
@@ -44,7 +52,7 @@ const ChatInput = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl className="w-full">
-                <div className="flex items-center justify-center mt-auto mb-5 w-full ">
+                <div className="flex items-center justify-center mt-auto mb-5 w-full pt-5">
                   <div className="flex items-center justify-center mx-auto w-[80%] relative pt-2  border-t-2">
                     <div className="absolute flex items-center justify-around left-0">
                       <Plus className="ms-2 me-3" />
@@ -62,6 +70,7 @@ const ChatInput = () => {
                       type="text"
                       id="chat"
                       placeholder="Message"
+                      disabled={loading}
                       {...field}
                     />
                   </div>

@@ -1,3 +1,4 @@
+import { FullMessageType } from "@/lib/types";
 import ChatItem from "./chat-item";
 
 type ChatProps = {
@@ -8,18 +9,11 @@ type ChatProps = {
   time: string;
 };
 
-const Chat = ({ chat }: { chat: ChatProps[] }) => {
+const Chat = ({ chat }: { chat: FullMessageType[] }) => {
   return (
-    <div className="flex flex-col grow">
-      {chat.map((item: ChatProps) => (
-        <ChatItem
-          key={item.id}
-          id={item.id}
-          icon={item.icon}
-          label={item.label}
-          content={item.content}
-          time={item.time}
-        />
+    <div className="flex flex-col grow overflow-x-hidden overflow-y-auto">
+      {chat.map((message) => (
+        <ChatItem key={message.id} {...message} />
       ))}
     </div>
   );

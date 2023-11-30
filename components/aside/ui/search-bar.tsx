@@ -50,6 +50,7 @@ const SearchBar = ({ users }: { users: string[] }) => {
             {users?.map((user: any) => (
               <CommandItem key={user.id}>
                 <UserMenu
+                  id={user.id}
                   key={user.id}
                   icon={user.image}
                   label={user.name}

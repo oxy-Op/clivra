@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const Header = () => {
   return (
-    <header className="w-full p-3 flex border">
+    <header className=" w-full p-3 flex border">
       <div className="ms-4">
         <h1 className="text-3xl opacity-90">
           <Link href="/">Clivra</Link>

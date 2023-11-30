@@ -1,0 +1,8 @@
+<div className="h-full">
+                <Header />
+                <div className="md:flex p-2 lg:space-x-4 md:space-x-2 h-[calc(100%-131.2px)] lg:h-[calc(100%-65.6px)] min-h-[200px]">
+                  <NavSideBar />
+                  {children}
+                </div>
+                <MobileNavBar />
+              </div>

@@ -2,7 +2,6 @@
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { User } from "@/lib/types";
-import { useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -13,23 +12,19 @@ import {
   ContextMenuSeparator,
 } from "@/components/ui/context-menu";
 import { useModal } from "@/hooks/use-modal";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Loading from "@/components/loading";
 import SearchBar from "@/components/aside/ui/search-bar";
 import { Separator } from "@/components/ui/separator";
 import UserMenu from "@/components/aside/ui/user-channel";
 import AsideBar from "@/components/aside/aside-sidebar";
 import Empty from "@/components/empty-area";
+import { useCallback } from "react";
 
 const SearchNav = () => {
-  const pathname = usePathname();
-  const { onOpen } = useModal();
+  const router = useRouter();
 
-  const active = () => {
-    if (pathname === "/") {
-      return true;
-    }
-  };
+  const { onOpen } = useModal();
 
   const { isLoading, data, error } = useQuery({
     queryKey: ["users"],
@@ -59,11 +54,11 @@ const SearchNav = () => {
               <ContextMenu key={user.id}>
                 <ContextMenuTrigger>
                   <UserMenu
+                    id={user.id}
                     aria-haspopup="true"
                     aria-label="Open Context Menu"
                     key={user.id}
                     icon={user.image}
-                    isActive={active()}
                     label={user.name}
                     status={"active"}
                     className="hover:bg-[#c7c7c7] dark:hover:bg-[#1d1d1d]"
