@@ -1,16 +1,13 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { MessageCircle } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 const GotoChat = () => {
   const pathname = usePathname();
   const router = useRouter();
-
-  const isActive = (path: string) => {
-    if (pathname.startsWith(path)) {
-      return true;
-    }
-  };
 
   return (
     <div

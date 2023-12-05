@@ -1,6 +1,9 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 
 const GoToSearch = () => {
   const pathname = usePathname();

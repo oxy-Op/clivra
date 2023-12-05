@@ -1,7 +1,7 @@
 "use client";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { User } from "@/lib/types";
+import { UserProps } from "@/lib/types";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import {
@@ -12,25 +12,21 @@ import {
   ContextMenuSeparator,
 } from "@/components/ui/context-menu";
 import { useModal } from "@/hooks/use-modal";
-import { useRouter } from "next/navigation";
 import Loading from "@/components/loading";
 import SearchBar from "@/components/aside/ui/search-bar";
 import { Separator } from "@/components/ui/separator";
 import UserMenu from "@/components/aside/ui/user-channel";
 import AsideBar from "@/components/aside/aside-sidebar";
 import Empty from "@/components/empty-area";
-import { useCallback } from "react";
 
 const SearchNav = () => {
-  const router = useRouter();
-
   const { onOpen } = useModal();
 
   const { isLoading, data, error } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axios.get("/api/users");
-      const users: User[] = res.data.users;
+      const users: UserProps[] = res.data.users;
       return users;
     },
   });

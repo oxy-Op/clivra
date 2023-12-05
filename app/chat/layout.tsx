@@ -1,12 +1,8 @@
 import AsideBar from "@/components/aside/aside-sidebar";
 import ConversationList from "@/components/aside/conversation-list";
 import GlobalChat from "@/components/aside/ui/global-channel";
-import UserMenu from "@/components/aside/ui/user-channel";
 import { Separator } from "@/components/ui/separator";
 import getConversations from "@/hooks/getConversations";
-import getCurrentUser from "@/hooks/getCurrentUser";
-
-export const revalidate = 0;
 
 export default async function ChatLayout({
   children,

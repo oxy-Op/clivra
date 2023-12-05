@@ -6,6 +6,9 @@ import ChatInput from "@/components/main/ui/chat-input";
 import getConversationById from "@/hooks/getConversation";
 import getCurrentUser from "@/hooks/getCurrentUser";
 import getMessages from "@/hooks/getMessages";
+import { FullMessageType } from "@/lib/types";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const Conversation = async ({
   params,
@@ -15,6 +18,7 @@ const Conversation = async ({
   const conversationId = params?.conversationId;
   const conversation = await getConversationById(conversationId);
   const messages = await getMessages(conversationId);
+
   const me = await getCurrentUser();
 
   const otherUser = conversation?.users.filter(
@@ -33,7 +37,7 @@ const Conversation = async ({
         icon={otherUser?.image}
         label={otherUser?.name}
       />
-      <Chat chat={messages} />
+      <Chat chat={messages || []} user={me || otherUser} />
       <ChatInput conversationId={conversationId} />
     </Channel>
   );

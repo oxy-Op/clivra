@@ -2,6 +2,35 @@ import getCurrentUser from "@/hooks/getCurrentUser";
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 
+export async function GET(req: Request) {
+  try {
+    const currentUser = await getCurrentUser();
+    const { searchParams } = new URL(req.url);
+    const conversationId = searchParams.get("conversationId");
+
+    if (!currentUser?.id || !currentUser.email) {
+      return new NextResponse("Unauthorized", { status: 401 });
+    }
+
+    const messages = await db.message.findMany({
+      where: {
+        conversationId: conversationId as string,
+      },
+      include: {
+        sender: true,
+        seen: true,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    return NextResponse.json(messages);
+  } catch (error: any) {
+    return [];
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const { text, image, conversationId } = await req.json();

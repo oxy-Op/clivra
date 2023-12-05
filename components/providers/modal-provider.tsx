@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Profile from "../modals/profile";
+import { MessageFileModal } from "../modals/attachments";
+import ImageModal from "../modals/image-modal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -17,6 +19,8 @@ export const ModalProvider = () => {
   return (
     <>
       <Profile />
+      <MessageFileModal />
+      <ImageModal />
     </>
   );
 };

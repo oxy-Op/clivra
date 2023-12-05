@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { UserMenuProps } from "@/lib/types";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -15,7 +15,8 @@ const UserMenu = ({
   isActive,
   className,
   status_text,
-}: UserMenuProps) => {
+  onClick,
+}: UserMenuProps & { onClick?: () => void }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -36,7 +37,7 @@ const UserMenu = ({
   return (
     <div
       role="button"
-      onClick={handleClick}
+      onClick={!!onClick ? onClick : handleClick}
       aria-label={`Chat with ${label}`}
       className={cn(
         "flex cursor-pointer w-full items-center  py-1 ps-2 mt-1 p-2",
@@ -46,9 +47,9 @@ const UserMenu = ({
       )}
       tabIndex={0}
     >
-      <div className="relative w-[32px] h-[32px]">
+      <div className="relative w-[34px] h-[34px]">
         <Image
-          className="rounded-full"
+          className="rounded-full object-cover"
           src={icon || "/user_placeholder.png"}
           alt={label || "user"}
           fill

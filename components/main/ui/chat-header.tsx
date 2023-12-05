@@ -1,3 +1,5 @@
+"use client";
+
 import UserMenu from "@/components/aside/ui/user-channel";
 import { UserMenuProps } from "@/lib/types";
 import { Globe, MoreVertical } from "lucide-react";
@@ -7,6 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
+import { useModal } from "@/hooks/use-modal";
 
 type HeaderProps = {
   type: "user" | "global";
@@ -19,6 +22,8 @@ const ChatHeader = ({
   status,
   type,
 }: UserMenuProps & HeaderProps) => {
+  const { onOpen } = useModal();
+
   return (
     <header className="flex items-center border w-full p-2">
       {type === "user" && (
@@ -26,9 +31,12 @@ const ChatHeader = ({
           <UserMenu
             id={id}
             icon={icon}
+            onClick={() => {
+              onOpen("profile", { label, icon, status });
+            }}
             label={label}
             status={status}
-            className="p-0 pb-1 dark:hover:bg-transparent hover:bg-transparent"
+            className="w-[30%] p-0 pb-1 dark:hover:bg-transparent hover:bg-transparent"
           />
           <div className="ms-auto me-2">
             <Popover>

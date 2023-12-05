@@ -23,14 +23,14 @@ const Profile = () => {
         <DialogHeader>
           <DialogTitle className="border-b-2 pb-2">Profile</DialogTitle>
           <div className="mt-2">
-            <div className="relative inline-block">
+            <div className="relative inline-block w-28 h-28">
               <Image
-                className="rounded-full ring-2"
+                className="rounded-full ring-2 object-cover"
                 src={icon || "/user_placeholder.png"}
                 alt={label || "user"}
                 loading="eager"
-                width={100}
-                height={100}
+                fill
+                sizes="112px"
                 quality={100}
               />
               <span

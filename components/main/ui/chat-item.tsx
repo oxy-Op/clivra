@@ -1,12 +1,25 @@
+import { useModal } from "@/hooks/use-modal";
 import { FullMessageType } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { User } from "@prisma/client";
 import Image from "next/image";
 
-const ChatItem = ({ id, image, body, createdAt, sender }: FullMessageType) => {
+const ChatItem = ({
+  id,
+  image,
+  body,
+  createdAt,
+  sender,
+  user,
+}: FullMessageType & { user?: User }) => {
+  const isMe = sender.id === user?.id;
+  const { onOpen } = useModal();
+
   return (
-    <div className="flex w-[500px]  gap-3 p-2 ">
+    <div className={cn("flex gap-3 p-2", isMe && "ms-auto lg:me-28")}>
       <div className="relative w-9 h-9 inline-block overflow-hidden">
         <Image
-          className="rounded-full"
+          className="rounded-full object-cover"
           src={sender.image || "/user_placeholder.png"}
           alt={"user avatar"}
           fill
@@ -22,7 +35,20 @@ const ChatItem = ({ id, image, body, createdAt, sender }: FullMessageType) => {
           </div>
         </div>
         <div className="ms-3 text-sm w-fit overflow-hidden">
-          <span className="break-all pb-3 pr-2">{body}</span>
+          <span className="break-all pr-2 ">{body}</span>
+          {image && (
+            <div className="relative w-64 h-64 inline-block overflow-hidden">
+              <Image
+                className="object-cover"
+                onClick={() => onOpen("imageModal", { image: image })}
+                src={image}
+                fill
+                sizes="300px"
+                alt="image"
+                quality={100}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
