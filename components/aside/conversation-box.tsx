@@ -4,6 +4,7 @@ import { FullConversationType, UserMenuProps } from "@/lib/types";
 import { useParams } from "next/navigation";
 import UserMenu from "./ui/user-channel";
 import { useMemo } from "react";
+import { User } from "@prisma/client";
 
 const ConversationBox = ({
   data,
@@ -14,7 +15,7 @@ const ConversationBox = ({
   status,
 }: UserMenuProps & { conversationId: string } & {
   data: FullConversationType;
-}) => {
+} & { currentUser: User | null }) => {
   const params = useParams();
 
   const isActive = params?.conversationId === conversationId;
@@ -35,7 +36,9 @@ const ConversationBox = ({
     return "Started a conversation";
   }, [lastMessage]);
 
-  return (
+  return data.isGroup ? (
+    <UserMenu key={id} id={id} icon={icon} label={data.name} />
+  ) : (
     <UserMenu
       key={id}
       id={id}

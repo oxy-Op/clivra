@@ -10,9 +10,10 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type HeaderProps = {
-  type: "user" | "global";
+  type: "user" | "global" | "loading";
 };
 
 const ChatHeader = ({
@@ -57,6 +58,12 @@ const ChatHeader = ({
           <Globe className="w-6 h-6 ms-2" />
           <h3 className="ms-4">Global Chat</h3>
         </>
+      )}
+      {type === "loading" && (
+        <div className="flex items-center py-1 ps-2 mt-1 p-2">
+          <Skeleton className="w-6 h-6 ms-2 rounded-full" />
+          <Skeleton className="h-6 w-32 ms-4 " />
+        </div>
       )}
     </header>
   );

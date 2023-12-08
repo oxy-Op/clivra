@@ -1,6 +1,13 @@
+import { User } from "@prisma/client";
 import { create } from "zustand";
 
-export type ModalType = "profile" | "messageFile" | "imageModal";
+export type ModalType =
+  | "profile"
+  | "messageFile"
+  | "imageModal"
+  | "editProfile"
+  | "editImage"
+  | "groupModal";
 
 type ModalData = {
   label?: string | null;
@@ -9,6 +16,8 @@ type ModalData = {
   apiUrl?: string;
   image?: string;
   query?: Record<string, any>;
+  conversationId?: string;
+  users?: User[];
 };
 
 interface ModalStore {

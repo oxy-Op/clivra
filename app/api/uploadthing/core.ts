@@ -10,6 +10,9 @@ const handle = () => {
 };
 
 export const ourFileRouter = {
+  imageFile: f(["image"])
+    .middleware(() => handle())
+    .onUploadComplete(() => {}),
   messageFile: f(["image"])
     .middleware(() => handle())
     .onUploadComplete(() => {}),

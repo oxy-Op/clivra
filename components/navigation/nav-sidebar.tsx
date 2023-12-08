@@ -10,10 +10,12 @@ import { useEffect, useState } from "react";
 import { User } from "@prisma/client";
 import { Skeleton } from "../ui/skeleton";
 import { SignOutButton } from "@clerk/nextjs";
+import { useModal } from "@/hooks/use-modal";
 
 const NavSideBar = () => {
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
+  const { onOpen } = useModal();
 
   useEffect(() => {
     fetch("/api/users/me").then((res) => {
@@ -70,7 +72,17 @@ const NavSideBar = () => {
               </div>
             </div>
             <div className="flex flex-col w-full justify-center items-center space-y-2">
-              <Button variant={"outline"} className="w-full">
+              <Button
+                onClick={() => {
+                  onOpen("editProfile", {
+                    label: user?.name,
+                    icon: user?.image,
+                    status: "active",
+                  });
+                }}
+                variant={"outline"}
+                className="w-full"
+              >
                 Edit Profile
               </Button>
               <SignOutButton>

@@ -37,7 +37,11 @@ const Conversation = async ({
         icon={otherUser?.image}
         label={otherUser?.name}
       />
-      <Chat chat={messages || []} user={me || otherUser} />
+      <Chat
+        chat={messages || []}
+        user={me || otherUser}
+        conversationId={conversationId}
+      />
       <ChatInput conversationId={conversationId} />
     </Channel>
   );

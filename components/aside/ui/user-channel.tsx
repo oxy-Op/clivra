@@ -6,6 +6,7 @@ import { UserMenuProps } from "@/lib/types";
 import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const UserMenu = ({
   id,
@@ -15,8 +16,9 @@ const UserMenu = ({
   isActive,
   className,
   status_text,
+  seen,
   onClick,
-}: UserMenuProps & { onClick?: () => void }) => {
+}: UserMenuProps & { onClick?: () => void } & { seen?: boolean }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 

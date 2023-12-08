@@ -18,14 +18,15 @@ import {
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useModal } from "@/hooks/use-modal";
 import { UploadFile } from "../upload-file";
+import { revalidatePath } from "next/cache";
 
-export const MessageFileModal = () => {
+export const EditImage = () => {
   const { isOpen, onClose, type, data } = useModal();
 
   const router = useRouter();
   const { apiUrl, query } = data;
 
-  const isModalOpen = isOpen && type === "messageFile";
+  const isModalOpen = isOpen && type === "editImage";
 
   const schema = z.object({
     fileUrl: z.string().min(1, {
@@ -48,8 +49,7 @@ export const MessageFileModal = () => {
   const isLoading = form.formState.isSubmitting;
   const onSubmit = async (values: z.infer<typeof schema>) => {
     try {
-      await axios.post(apiUrl || "", {
-        conversationId: query?.conversationId,
+      await axios.patch(apiUrl || "", {
         image: values.fileUrl,
       });
       router.refresh();
@@ -64,10 +64,10 @@ export const MessageFileModal = () => {
       <DialogContent className=" overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Add an attachment
+            Change Profile Image
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Send a file
+            Image will be displayed on your profile
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -86,8 +86,8 @@ export const MessageFileModal = () => {
                       <FormControl>
                         <div className="w-full">
                           <UploadFile
-                            type="message"
-                            endpoint="messageFile"
+                            type="avatar"
+                            endpoint="imageFile"
                             onChange={field.onChange}
                             value={field.value}
                           />
@@ -100,7 +100,7 @@ export const MessageFileModal = () => {
             </div>
             <DialogFooter className="px-6 py-4">
               <Button variant={"outline"} disabled={isLoading}>
-                Send attachment
+                Edit Avatar
               </Button>
             </DialogFooter>
           </form>

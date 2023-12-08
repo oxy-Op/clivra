@@ -17,6 +17,7 @@ export default async function ConversationList({
           (user) =>
             currentUser?.id !== user.id && (
               <ConversationBox
+                currentUser={currentUser}
                 data={conversation}
                 conversationId={conversation.id}
                 key={user.id}
