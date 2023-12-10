@@ -12,7 +12,7 @@ import {
   ContextMenuSeparator,
 } from "@/components/ui/context-menu";
 import { useModal } from "@/hooks/use-modal";
-import Loading from "@/components/loading";
+import Loading from "@/components/waiting";
 import SearchBar from "@/components/aside/ui/search-bar";
 import { Separator } from "@/components/ui/separator";
 import UserMenu from "@/components/aside/ui/user-channel";
