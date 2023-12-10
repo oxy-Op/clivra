@@ -7,6 +7,9 @@ import ImageModal from "../modals/image-modal";
 import EditProfile from "../modals/edit-profile";
 import { EditImage } from "../modals/edit-image";
 import { GroupAddModal } from "../modals/group-add";
+import EditGroup from "../modals/edit-group";
+import DeleteConversation from "../modals/delete-conversation";
+import { Toaster } from "../ui/toaster";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -27,6 +30,9 @@ export const ModalProvider = () => {
       <EditProfile />
       <EditImage />
       <GroupAddModal />
+      <EditGroup />
+      <DeleteConversation />
+      <Toaster />
     </>
   );
 };

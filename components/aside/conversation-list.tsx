@@ -1,34 +1,97 @@
-import { FullConversationType } from "@/lib/types";
-import UserMenu from "./ui/user-channel";
-import getCurrentUser from "@/hooks/getCurrentUser";
-import ConversationBox from "./conversation-box";
+"use client";
 
-export default async function ConversationList({
+import { FullConversationType } from "@/lib/types";
+import ConversationBox from "./conversation-box";
+import { User } from "@prisma/client";
+import { useEffect, useMemo, useState } from "react";
+import { pusherClient } from "@/lib/pusher";
+import { find } from "lodash";
+import { useParams, useRouter } from "next/navigation";
+
+export default function ConversationList({
   items,
+  currentUser,
 }: {
   items: FullConversationType[];
-}) {
-  const currentUser = await getCurrentUser();
+} & { currentUser: User | null }) {
+  const [conv, setConv] = useState(items);
+  const params = useParams();
+  const router = useRouter();
+
+  const pusherKey = useMemo(() => {
+    return currentUser?.email;
+  }, [currentUser?.email]);
+
+  useEffect(() => {
+    if (!pusherKey) {
+      return;
+    }
+
+    const handler = (conversation: FullConversationType) => {
+      setConv((current) => {
+        if (find(current, { id: conversation.id })) {
+          return current;
+        }
+
+        return [conversation, ...current];
+      });
+    };
+
+    const updateHandler = (conversation: FullConversationType) => {
+      setConv((current) =>
+        current.map((currentConversation) => {
+          if (currentConversation.id === conversation.id) {
+            return {
+              ...currentConversation,
+              messages: conversation.messages,
+            };
+          }
+          return currentConversation;
+        })
+      );
+    };
+
+    const removeHandler = (conversation: FullConversationType) => {
+      setConv((current) =>
+        current.filter((currentConversation) => {
+          return currentConversation.id !== conversation.id;
+        })
+      );
+
+      if (conversation.id === params?.conversationId) {
+        router.push("/chat");
+      }
+    };
+
+    pusherClient.subscribe(pusherKey);
+    pusherClient.bind("conversation:new", handler);
+    pusherClient.bind("conversation:update", updateHandler);
+    pusherClient.bind("conversation:remove", removeHandler);
+
+    return () => {
+      pusherClient.unsubscribe(pusherKey);
+      pusherClient.unbind("conversation:new", handler);
+      pusherClient.unbind("conversation:update", updateHandler);
+      pusherClient.unbind("conversation:remove", removeHandler);
+    };
+  }, [pusherKey, params?.conversationId, router]);
 
   return (
     <div className="w-full">
-      {items.map((conversation) =>
-        conversation.users.map(
-          (user) =>
-            currentUser?.id !== user.id && (
-              <ConversationBox
-                currentUser={currentUser}
-                data={conversation}
-                conversationId={conversation.id}
-                key={user.id}
-                id={user.id}
-                icon={user.image || ""}
-                label={user.name || ""}
-                status="active"
-              />
-            )
-        )
+      {conv.length === 0 && (
+        <p className="text-center text-xs mt-12 text-zinc-400">
+          Conversations started with people will appear here
+        </p>
       )}
+      {conv.map((conversation) => (
+        <ConversationBox
+          key={conversation.id}
+          currentUser={currentUser}
+          data={conversation}
+          conversationId={conversation.id}
+          status="active"
+        />
+      ))}
     </div>
   );
 }

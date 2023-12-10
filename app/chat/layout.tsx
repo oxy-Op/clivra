@@ -2,8 +2,10 @@ import AsideBar from "@/components/aside/aside-sidebar";
 import ConversationList from "@/components/aside/conversation-list";
 import GlobalChat from "@/components/aside/ui/global-channel";
 import ConversationLabel from "@/components/conv-group-add";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import getConversations from "@/hooks/getConversations";
+import getCurrentUser from "@/hooks/getCurrentUser";
 import getUsers from "@/hooks/getUsers";
 
 export default async function ChatLayout({
@@ -13,6 +15,7 @@ export default async function ChatLayout({
 }) {
   const conversations = await getConversations();
   const users = await getUsers();
+  const currentUser = await getCurrentUser();
 
   return (
     <>
@@ -21,12 +24,9 @@ export default async function ChatLayout({
         <Separator className="mt-1" />
         <ConversationLabel users={users} />
         <Separator className="mt-1" />
-        {conversations.length === 0 && (
-          <p className="text-center text-xs  my-auto text-zinc-400">
-            Conversations started with people will appear here
-          </p>
-        )}
-        <ConversationList items={conversations} />
+        <ScrollArea className="h-full w-full">
+          <ConversationList currentUser={currentUser} items={conversations} />
+        </ScrollArea>
       </AsideBar>
       {children}
     </>

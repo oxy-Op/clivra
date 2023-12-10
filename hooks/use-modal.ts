@@ -7,7 +7,9 @@ export type ModalType =
   | "imageModal"
   | "editProfile"
   | "editImage"
-  | "groupModal";
+  | "groupModal"
+  | "editGroup"
+  | "deleteConversation";
 
 type ModalData = {
   label?: string | null;
@@ -18,6 +20,8 @@ type ModalData = {
   query?: Record<string, any>;
   conversationId?: string;
   users?: User[];
+  isGroup?: boolean | null;
+  me?: User | null;
 };
 
 interface ModalStore {

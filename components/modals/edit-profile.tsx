@@ -61,12 +61,12 @@ const EditProfile = () => {
     axios.patch("/api/users/me", {
       name: values.username,
     });
-    setClicked(!clicked);
+    setClicked(false);
     router.refresh();
   }
 
   const handleModalClose = () => {
-    setClicked(!clicked);
+    setClicked(false);
     onClose();
   };
 
@@ -115,7 +115,7 @@ const EditProfile = () => {
                   </h3>
                   <button
                     className="hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] p-2 rounded-md"
-                    onClick={() => setClicked(!clicked)}
+                    onClick={() => setClicked(true)}
                   >
                     <EditIcon />
                     <span className="sr-only">Edit username</span>
@@ -136,6 +136,7 @@ const EditProfile = () => {
                               autoFocus
                               {...field}
                               value={field.value}
+                              onChange={field.onChange}
                               placeholder="Username"
                               className="border-none text-xl opacity-80 ps-5"
                             />

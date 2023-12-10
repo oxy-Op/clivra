@@ -18,13 +18,12 @@ import {
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useModal } from "@/hooks/use-modal";
 import { UploadFile } from "../upload-file";
-import { revalidatePath } from "next/cache";
 
 export const EditImage = () => {
   const { isOpen, onClose, type, data } = useModal();
 
   const router = useRouter();
-  const { apiUrl, query } = data;
+  const { apiUrl, conversationId, isGroup } = data;
 
   const isModalOpen = isOpen && type === "editImage";
 
@@ -51,6 +50,7 @@ export const EditImage = () => {
     try {
       await axios.patch(apiUrl || "", {
         image: values.fileUrl,
+        conversationId,
       });
       router.refresh();
       handleClose();
@@ -64,10 +64,12 @@ export const EditImage = () => {
       <DialogContent className=" overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Change Profile Image
+            Change {isGroup ? "Group" : "Profile"} Image
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Image will be displayed on your profile
+            {isGroup
+              ? "Group image will be changed "
+              : "Image will be displayed on your profile"}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -100,7 +102,7 @@ export const EditImage = () => {
             </div>
             <DialogFooter className="px-6 py-4">
               <Button variant={"outline"} disabled={isLoading}>
-                Edit Avatar
+                Edit {isGroup ? "Group Image" : "Avatar"}
               </Button>
             </DialogFooter>
           </form>

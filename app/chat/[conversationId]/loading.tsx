@@ -1,5 +1,4 @@
 import Channel from "@/components/main/main";
-import Chat from "@/components/main/ui/chat";
 import ChatHeader from "@/components/main/ui/chat-header";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
@@ -9,7 +8,7 @@ const Loading = () => {
     <Channel>
       <ChatHeader type="loading" />
       <div className="flex flex-col grow overflow-x-hidden overflow-y-auto">
-        {Array.from({ length: 8 }).map((_, index) => (
+        {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
             className={cn(

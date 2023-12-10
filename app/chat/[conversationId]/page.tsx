@@ -31,12 +31,27 @@ const Conversation = async ({
 
   return (
     <Channel>
-      <ChatHeader
-        type="user"
-        id={otherUser?.id}
-        icon={otherUser?.image}
-        label={otherUser?.name}
-      />
+      {conversation.isGroup ? (
+        <ChatHeader
+          isGroup
+          type="user"
+          conversationId={conversationId}
+          members={conversation.users}
+          totalMembers={conversation.users.length.toString()}
+          id={conversation.id}
+          icon={conversation.image || otherUser?.image}
+          label={conversation.name}
+          me={me}
+        />
+      ) : (
+        <ChatHeader
+          type="user"
+          id={otherUser?.id}
+          conversationId={conversationId}
+          icon={otherUser?.image}
+          label={otherUser?.name}
+        />
+      )}
       <Chat
         chat={messages || []}
         user={me || otherUser}

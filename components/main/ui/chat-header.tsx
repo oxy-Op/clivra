@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
 import { Skeleton } from "@/components/ui/skeleton";
+import { User } from "@prisma/client";
 
 type HeaderProps = {
   type: "user" | "global" | "loading";
@@ -18,11 +19,22 @@ type HeaderProps = {
 
 const ChatHeader = ({
   id,
+  conversationId,
   icon,
   label,
   status,
+  isGroup,
+  members,
   type,
-}: UserMenuProps & HeaderProps) => {
+  me,
+  totalMembers,
+}: UserMenuProps &
+  HeaderProps & {
+    totalMembers?: string;
+    members?: User[];
+    me?: User | null;
+    conversationId?: string;
+  }) => {
   const { onOpen } = useModal();
 
   return (
@@ -32,21 +44,44 @@ const ChatHeader = ({
           <UserMenu
             id={id}
             icon={icon}
-            onClick={() => {
-              onOpen("profile", { label, icon, status });
-            }}
+            isGroup={isGroup}
+            onClick={
+              !isGroup
+                ? () => {
+                    onOpen("profile", { label, icon, status, isGroup });
+                  }
+                : () =>
+                    onOpen("editGroup", {
+                      label,
+                      icon,
+                      conversationId: id,
+                      users: members,
+                      me: me,
+                    })
+            }
             label={label}
             status={status}
+            status_text={isGroup ? `${totalMembers} members` : ""}
             className="w-[30%] p-0 pb-1 dark:hover:bg-transparent hover:bg-transparent"
           />
-          <div className="ms-auto me-2">
+          <div className="ms-auto me-4">
             <Popover>
               <PopoverTrigger>
                 <MoreVertical className="rounded-full hover:bg-[#e6e5d8] dark:hover:bg-[#2c2c2c]" />
               </PopoverTrigger>
-              <PopoverContent className="w-[140px]">
-                <Button variant="outline" className="">
-                  Clear chat
+              <PopoverContent className="">
+                <Button
+                  onClick={() => {
+                    onOpen("deleteConversation", {
+                      conversationId: conversationId,
+                      label: label,
+                    });
+                  }}
+                  tabIndex={0}
+                  variant="destructive"
+                  className="w-full mx-auto"
+                >
+                  Delete conversation
                 </Button>
               </PopoverContent>
             </Popover>

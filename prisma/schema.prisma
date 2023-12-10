@@ -52,6 +52,7 @@ model Conversation {
   name          String?
   lastMessageAt DateTime @default(now())
   isGroup       Boolean?
+  image         String?
 
   messageIds String[]  @db.ObjectId
   messages   Message[]

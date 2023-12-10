@@ -1,5 +1,6 @@
 import getCurrentUser from "@/hooks/getCurrentUser";
 import { db } from "@/lib/db";
+import { pusherServer } from "@/lib/pusher";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -9,6 +10,10 @@ export async function POST(request: Request) {
 
     if (!me?.id || !me?.email) {
       return new NextResponse("Unauthorized", { status: 400 });
+    }
+
+    if (userId === me.id) {
+      return new NextResponse("Invalid data", { status: 400 });
     }
 
     if (isGroup && (!members || members.length < 2 || !name)) {
@@ -34,6 +39,16 @@ export async function POST(request: Request) {
         include: {
           users: true,
         },
+      });
+
+      groupConversation.users.forEach((user) => {
+        if (user.email) {
+          pusherServer.trigger(
+            user.email,
+            "conversation:new",
+            groupConversation
+          );
+        }
       });
 
       return NextResponse.json(groupConversation);
@@ -82,7 +97,38 @@ export async function POST(request: Request) {
       },
     });
 
+    newConversation.users.forEach((user) => {
+      if (user.email) {
+        pusherServer.trigger(user.email, "conversation:new", newConversation);
+      }
+    });
+
     return NextResponse.json(newConversation);
+  } catch (error: any) {
+    return new NextResponse("Internal Server Error", { status: 500 });
+  }
+}
+
+export async function PATCH(request: Request) {
+  try {
+    const me = await getCurrentUser();
+    const { name, image, conversationId } = await request.json();
+
+    if (!me?.id || !me?.email) {
+      return new NextResponse("Unauthorized", { status: 400 });
+    }
+
+    const groupConversation = await db.conversation.update({
+      where: {
+        id: conversationId,
+      },
+      data: {
+        name,
+        image,
+      },
+    });
+
+    return NextResponse.json(groupConversation);
   } catch (error: any) {
     return new NextResponse("Internal Server Error", { status: 500 });
   }

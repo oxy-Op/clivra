@@ -1,11 +1,13 @@
 import getCurrentUser from "@/hooks/getCurrentUser";
 import { db } from "@/lib/db";
+import { pusherServer } from "@/lib/pusher";
 import { NextResponse } from "next/server";
 
-export async function POST(
-  request: Request,
-  { params }: { params: { conversationId: string } }
-) {
+interface IParams {
+  conversationId?: string;
+}
+
+export async function POST(request: Request, { params }: { params: IParams }) {
   try {
     const currentUser = await getCurrentUser();
     const { conversationId } = params;
@@ -59,10 +61,10 @@ export async function POST(
     });
 
     // Update all connections with new seen
-    // await pusherServer.trigger(currentUser.email, "conversation:update", {
-    //   id: conversationId,
-    //   messages: [updatedMessage],
-    // });
+    await pusherServer.trigger(currentUser.email, "conversation:update", {
+      id: conversationId,
+      messages: [updatedMessage],
+    });
 
     // If user has already seen the message, no need to go further
     if (lastMessage.seenIds.indexOf(currentUser.id) !== -1) {
@@ -70,11 +72,11 @@ export async function POST(
     }
 
     // Update last message seen
-    // await pusherServer.trigger(
-    //   conversationId!,
-    //   "message:update",
-    //   updatedMessage
-    // );
+    await pusherServer.trigger(
+      conversationId!,
+      "message:update",
+      updatedMessage
+    );
 
     return new NextResponse("Success");
   } catch (error) {

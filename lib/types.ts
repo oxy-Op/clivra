@@ -8,6 +8,7 @@ export type UserMenuProps = {
   status?: "active" | "offline";
   status_text?: string;
   className?: string;
+  isGroup?: boolean | null;
 };
 
 export type ChatItemProps = {

@@ -1,5 +1,6 @@
 import getCurrentUser from "@/hooks/getCurrentUser";
 import { db } from "@/lib/db";
+import { pusherServer } from "@/lib/pusher";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -72,6 +73,40 @@ export async function POST(req: Request) {
         seen: true,
         sender: true,
       },
+    });
+
+    const updatedConversation = await db.conversation.update({
+      where: {
+        id: conversationId,
+      },
+      data: {
+        lastMessageAt: new Date(),
+        messages: {
+          connect: {
+            id: message.id,
+          },
+        },
+      },
+      include: {
+        users: true,
+        messages: {
+          include: {
+            seen: true,
+          },
+        },
+      },
+    });
+
+    await pusherServer.trigger(conversationId, "messages:new", message);
+
+    const lastMessage =
+      updatedConversation.messages[updatedConversation.messages.length - 1];
+
+    updatedConversation.users.map((user) => {
+      pusherServer.trigger(user.email!, "conversation:update", {
+        id: conversationId,
+        messages: [lastMessage],
+      });
     });
 
     return NextResponse.json(message);

@@ -45,7 +45,7 @@ export const GroupAddModal = () => {
   const schema = z.object({
     name: z
       .string()
-      .min(1, { message: "Group name is required" })
+      .min(2, { message: "Group name must be at least 2 characters" })
       .max(14, { message: "Group name must be less than 14 characters" }),
     members: z.array(group).refine(
       (members) => {
