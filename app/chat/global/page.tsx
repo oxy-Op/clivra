@@ -7,7 +7,7 @@ const Global = () => {
   return (
     <Channel>
       <ChatHeader type="global" />
-      <Chat
+      {/* <Chat
         chat={[
           {
             id: "1",
@@ -18,7 +18,7 @@ const Global = () => {
           },
         ]}
       />
-      <ChatInput />
+      <ChatInput /> */}
     </Channel>
   );
 };
