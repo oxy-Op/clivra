@@ -80,7 +80,7 @@ const ChatItem = ({
             <>
               <div className="flex items-center gap-2">
                 <div className="ms-2 text-sm font-semibold">{sender.name}</div>
-                <div className="text-xs text-neutral-300">
+                <div className="text-xs  dark:text-neutral-300">
                   {format(new Date(createdAt), "p")}
                 </div>
               </div>
