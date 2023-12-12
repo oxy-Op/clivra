@@ -1,25 +1,21 @@
-import { db } from "@/lib/db";
+import { initialProfile } from "@/lib/initial-profile";
 import { currentUser, redirectToSignUp } from "@clerk/nextjs";
-
+import { redirect } from "next/navigation";
 
 async function getCurrentUser() {
-    const me = await currentUser();
+  const me = await currentUser();
 
-    if (!me){
-        redirectToSignUp()
-    }
+  if (!me) {
+    redirectToSignUp();
+  }
 
-    const user = await db.user.findUnique({
-        where: {
-            email: me?.emailAddresses[0].emailAddress
-        }
-    })
+  const profile = await initialProfile();
 
-    if (!user){
-        return null;
-    }
+  if (!profile) {
+    return redirect("/");
+  }
 
-    return user
+  return profile;
 }
- 
+
 export default getCurrentUser;

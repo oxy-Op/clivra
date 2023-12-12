@@ -11,13 +11,7 @@ const IsLogged = async () => {
 
   const profile = await initialProfile();
 
-  if (!profile) {
-    return redirectToSignIn();
-  }
-
-  if (profile) {
-    redirect("/chat");
-  }
+  return redirect("/chat");
 };
 
 export default IsLogged;

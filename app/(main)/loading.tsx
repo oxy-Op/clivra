@@ -1,5 +1,4 @@
 import AsideBar from "@/components/aside/aside-sidebar";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Loader2 } from "lucide-react";
 
 const Loading = () => {

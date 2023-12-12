@@ -29,9 +29,7 @@ export default function RootLayout({
         >
           <ThemeProvider attribute="class" enableSystem defaultTheme="system">
             <ModalProvider />
-            <QueryProvider>
-              <Layout>{children}</Layout>
-            </QueryProvider>
+            <QueryProvider>{children}</QueryProvider>
           </ThemeProvider>
         </body>
       </html>

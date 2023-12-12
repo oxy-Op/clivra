@@ -36,7 +36,6 @@ const NavSideBar = () => {
       </div>
       <div className="mt-auto flex flex-col space-y-4  mb-2 ">
         <ModeToggle />
-        {/* <UserButton afterSignOutUrl="/" /> */}
         <Popover>
           <PopoverTrigger>
             <div className="relative h-8 w-8" tabIndex={0}>
