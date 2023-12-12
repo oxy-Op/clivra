@@ -1,9 +1,9 @@
 import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 import { db } from "@/lib/db";
+import { log } from "./utils";
 
 export const initialProfile = async () => {
   const user = await currentUser();
-
   if (!user) {
     return redirectToSignIn();
   }
@@ -15,6 +15,7 @@ export const initialProfile = async () => {
   });
 
   if (profile) {
+    log("[PROFILE_FOUND]", profile.name);
     return profile;
   }
 
@@ -27,6 +28,8 @@ export const initialProfile = async () => {
       email: user.emailAddresses[0].emailAddress,
     },
   });
+
+  log("[PROFILE_CREATED]", newProf.name);
 
   return newProf;
 };

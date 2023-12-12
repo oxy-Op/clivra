@@ -6,9 +6,6 @@ import ChatInput from "@/components/main/ui/chat-input";
 import getConversationById from "@/hooks/getConversation";
 import getCurrentUser from "@/hooks/getCurrentUser";
 import getMessages from "@/hooks/getMessages";
-import { FullMessageType } from "@/lib/types";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 const Conversation = async ({
   params,

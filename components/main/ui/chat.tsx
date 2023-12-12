@@ -65,7 +65,11 @@ const Chat = ({
   }, [conversationId]);
 
   return (
-    <div className="flex flex-col grow overflow-x-hidden overflow-y-auto">
+    <div
+      role="list"
+      className="flex flex-col grow overflow-x-hidden overflow-y-auto"
+      aria-live="polite"
+    >
       {messages.map((message, i) => (
         <ChatItem
           key={i}

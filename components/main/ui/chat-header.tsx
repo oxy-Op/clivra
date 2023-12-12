@@ -66,10 +66,11 @@ const ChatHeader = ({
           />
           <div className="ms-auto me-4">
             <Popover>
-              <PopoverTrigger>
+              <PopoverTrigger aria-label="More Button">
+                <span className="sr-only">More Button</span>
                 <MoreVertical className="rounded-full hover:bg-[#e6e5d8] dark:hover:bg-[#2c2c2c]" />
               </PopoverTrigger>
-              <PopoverContent className="">
+              <PopoverContent>
                 <Button
                   onClick={() => {
                     onOpen("deleteConversation", {

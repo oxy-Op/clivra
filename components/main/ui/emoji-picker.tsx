@@ -19,7 +19,8 @@ export const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
   const { resolvedTheme } = useTheme();
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger aria-label="Emoji">
+        <span className="sr-only">Emoji</span>
         <Smile className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
       </PopoverTrigger>
       <PopoverContent

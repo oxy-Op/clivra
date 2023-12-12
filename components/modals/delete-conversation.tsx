@@ -56,6 +56,7 @@ const DeleteConversation = () => {
         </Button>
         <Button disabled={loading} onClick={onDelete} variant={"destructive"}>
           Delete
+          <span className="sr-only">Delete Conversation</span>
         </Button>
       </DialogContent>
     </Dialog>

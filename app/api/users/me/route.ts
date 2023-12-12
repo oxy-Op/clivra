@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
+import { pusherServer } from "@/lib/pusher";
 import { currentUser } from "@clerk/nextjs";
-import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -56,6 +56,15 @@ export async function PATCH(req: Request) {
         image: image,
       },
     });
+
+    pusherServer.trigger(user.id, "user:update", updatedUser);
+    console.log(
+      "triggeed user:updated",
+      "[prevName]: ",
+      user.name,
+      "[newName]: ",
+      updatedUser.name
+    );
 
     return NextResponse.json(updatedUser);
   } catch (error) {

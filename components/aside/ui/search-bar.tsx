@@ -12,8 +12,9 @@ import UserMenu from "./user-channel";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
+import { User } from "@prisma/client";
 
-const SearchBar = ({ users }: { users: string[] }) => {
+const SearchBar = ({ users }: { users: User[] }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const SearchBar = ({ users }: { users: string[] }) => {
           <span>Search People</span>
         </div>
         <span className="hidden lg:block text-xs absolute top-2 right-2">
-          <kbd className="text-xs ms-auto"> CTRL + K</kbd>
+          <kbd className="text-xs ms-auto"> CTRL + K </kbd>
         </span>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
@@ -47,14 +48,13 @@ const SearchBar = ({ users }: { users: string[] }) => {
         <CommandList className="w-full">
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="People">
-            {users?.map((user: any) => (
+            {users?.map((user) => (
               <CommandItem key={user.id}>
                 <UserMenu
                   id={user.id}
                   key={user.id}
                   icon={user.image}
                   label={user.name}
-                  status="active"
                   className="mt-0 p-0"
                 />
               </CommandItem>

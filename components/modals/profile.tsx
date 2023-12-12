@@ -26,7 +26,7 @@ const Profile = () => {
               <Image
                 className="rounded-full ring-2 object-cover"
                 src={icon || "/user_placeholder.png"}
-                alt={label || "user"}
+                alt={`${label} profile picture`}
                 loading="eager"
                 fill
                 sizes="112px"

@@ -14,20 +14,24 @@ const GlobalChat = () => {
   };
 
   return (
-    <div
+    <button
+      disabled
       className={cn(
-        "flex items-center cursor-pointer w-full p-3 bg-[#a3a3a3] dark:bg-[#141414] hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] transition rounded-[12px] mb-2 ",
-        isActive && "bg-[#dcdcdc] dark:bg-[#2c2c2c]"
+        "relative flex items-center w-full p-3 bg-[#a3a3a3] dark:bg-[#2f2f2f] hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] transition rounded-[12px] mb-2 cursor-not-allowed",
+        isActive && "bg-[#dcdcdc] dark:bg-[#2c2c2c] disabled:cursor-not-allowed"
       )}
       onClick={handleClick}
     >
+      <div className="absolute right-0 top-0 bg-blue-500 flex items-center justify-center text-white p-1">
+        <span className="text-sm font-semibold">Coming soon!</span>
+      </div>
       <div className="rounded-full ">
         <Globe className="w-6 h-6" />
       </div>
       <div className="ms-3">
         <span>Global</span>
       </div>
-    </div>
+    </button>
   );
 };
 

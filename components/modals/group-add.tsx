@@ -121,6 +121,7 @@ export const GroupAddModal = () => {
                             GROUP NAME
                           </label>
                           <Input
+                            autoComplete="off"
                             disabled={isLoading}
                             id="group_name"
                             className="w-full"

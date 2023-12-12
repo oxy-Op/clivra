@@ -21,7 +21,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import axios from "axios";
-import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -39,10 +38,12 @@ const formSchema = z.object({
 const EditProfile = () => {
   const { isOpen, onClose, type, data, onOpen } = useModal();
   const isModalOpen = isOpen && type === "editProfile";
-  const { label, icon, status } = data;
+  const { label, icon } = data;
+
   const router = useRouter();
 
   const [clicked, setClicked] = useState(false);
+  const [name, setName] = useState(label);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,6 +53,7 @@ const EditProfile = () => {
   });
 
   useEffect(() => {
+    setName(label);
     form.setValue("username", label || "");
   }, [label, form]);
 
@@ -62,6 +64,7 @@ const EditProfile = () => {
       name: values.username,
     });
     setClicked(false);
+    setName(values.username);
     router.refresh();
   }
 
@@ -82,7 +85,7 @@ const EditProfile = () => {
               <Image
                 className="rounded-full ring-2 object-cover "
                 src={icon || "/user_placeholder.png"}
-                alt={label || "user"}
+                alt={"User image"}
                 fill
                 sizes="112px"
                 quality={100}
@@ -98,12 +101,12 @@ const EditProfile = () => {
                 <Edit2 />
                 <span className="sr-only">Edit avatar</span>
               </div>
-              <span
+              {/* <span
                 className={cn(
                   "absolute bottom-2 right-2 rounded-full w-4 h-4 ring-4 ring-[#f3f2e9] dark:ring-[#141414]",
                   status === "active" ? "bg-green-500/80" : "bg-red-500/80"
                 )}
-              ></span>
+              ></span> */}
             </div>
           </div>
           <div className="h-full bg-background rounded-md mt-4">
@@ -111,7 +114,7 @@ const EditProfile = () => {
               <>
                 <div className="flex items-center">
                   <h3 className="p-3 ms-2 text-xl opacity-80">
-                    {label || "user"}
+                    {name || "usr"}
                   </h3>
                   <button
                     className="hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] p-2 rounded-md"
@@ -135,6 +138,7 @@ const EditProfile = () => {
                             <Input
                               autoFocus
                               {...field}
+                              autoComplete="on"
                               value={field.value}
                               onChange={field.onChange}
                               placeholder="Username"

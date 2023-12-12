@@ -23,6 +23,7 @@ const ConversationLabel = ({ users }: { users: User[] }) => {
           })
         }
       >
+        <span className="sr-only">Create group</span>
         <Users />
       </button>
     </div>

@@ -40,11 +40,25 @@ const UserMenu = ({
       });
   }, [router, id]);
 
+  const keyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+
+      // Trigger the click action
+      if (!isCurrentUser && onClick) {
+        onClick();
+      } else if (!isCurrentUser) {
+        handleClick();
+      }
+    }
+  };
+
   return (
     <div
       role="button"
+      aria-pressed={isActive}
       onClick={isCurrentUser ? undefined : !!onClick ? onClick : handleClick}
-      aria-label={`Chat with ${label}`}
+      onKeyDown={keyDown}
       className={cn(
         "flex cursor-pointer w-full items-center  py-1 ps-2 mt-1 p-2",
         className,
@@ -53,16 +67,16 @@ const UserMenu = ({
       )}
       tabIndex={0}
     >
-      <div className="relative w-[34px] h-[34px]">
+      <div className="relative min-w-[32px] w-[34px] h-[34px]">
         <Image
           className="rounded-full object-cover"
           src={icon || "/user_placeholder.png"}
-          alt={label || "user"}
+          alt={`Profile picture of ${label}`}
           fill
           sizes="32px"
           quality={100}
         />
-        {!isGroup && (
+        {!isGroup && status && (
           <span
             className={cn(
               "absolute bottom-0 right-0 rounded-full w-2 h-2 ring-2 ring-[#f3f2e9] dark:ring-[#141414]",
@@ -72,9 +86,11 @@ const UserMenu = ({
         )}
       </div>
       <div className="flex flex-col ms-3 max-w-[150px]">
-        <span className={cn(loading && "animate-pulse")}>{label}</span>
+        <span aria-label={label!} className={cn(loading && "animate-pulse")}>
+          {label}
+        </span>
         {status_text && (
-          <span className="text-xs text-zinc-800 dark:text-neutral-500 font-semibold truncate">
+          <span className="text-xs text-zinc-800 dark:text-neutral-300 font-semibold truncate">
             {status_text}
           </span>
         )}

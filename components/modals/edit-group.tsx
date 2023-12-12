@@ -139,7 +139,7 @@ const EditGroup = () => {
                   <Image
                     className="rounded-full ring-2 object-cover "
                     src={icon || "/user_placeholder.png"}
-                    alt={label || "user"}
+                    alt={"Group profile picture"}
                     fill
                     sizes="112px"
                     quality={100}
