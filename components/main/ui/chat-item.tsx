@@ -71,7 +71,8 @@ const ChatItem = ({
               onClick={() => handleImageClick(image)}
               src={image}
               fill
-              sizes="300px"
+              priority
+              sizes="1000px"
               alt="image"
               quality={100}
             />
