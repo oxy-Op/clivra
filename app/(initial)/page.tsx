@@ -10,7 +10,6 @@ const IsLogged = async () => {
   }
 
   const profile = await initialProfile();
-  localStorage.setItem("theme", "dark");
 
   return redirect("/chat");
 };
