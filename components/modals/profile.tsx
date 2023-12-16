@@ -12,11 +12,11 @@ import Image from "next/image";
 const Profile = () => {
   const { isOpen, onClose, type, data } = useModal();
   const isModalOpen = isOpen && type === "profile";
-  const { label, icon, status, isGroup } = data;
+  const { label, icon, createdAt, isGroup } = data;
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent className="md:min-h-[400px] min-h-[200px] bg-[#f4f4f4] dark:bg-[#141414]">
+      <DialogContent className="md:min-h-[400px] h-[500px] bg-[#f4f4f4] dark:bg-[#141414]">
         <DialogHeader>
           <DialogTitle className="border-b-2 pb-2">
             {isGroup ? "Group" : "Profile"}
@@ -42,7 +42,15 @@ const Profile = () => {
           </div>
           <div className="h-full bg-background rounded-md mt-4">
             <h3 className="p-3 ms-2 text-xl opacity-80">{label}</h3>
-            <div className="w-[80%] bg-border h-[2px] ms-4"></div>
+            <div className="md:w-[80%] md:ms-4 ms-0 w-full bg-border h-[2px] "></div>
+            <div className="w-full ms-4 mt-4">
+              <span className="text-md">
+                Joined on{" "}
+                <span className="font-bold text-base">
+                  {new Date(createdAt || 0).toDateString()}
+                </span>
+              </span>
+            </div>
           </div>
         </DialogHeader>
       </DialogContent>

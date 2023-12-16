@@ -31,6 +31,7 @@ const Conversation = async ({
       {conversation.isGroup ? (
         <ChatHeader
           isGroup
+          createdAt={conversation.createdAt}
           type="user"
           conversationId={conversationId}
           members={conversation.users}
@@ -43,6 +44,7 @@ const Conversation = async ({
       ) : (
         <ChatHeader
           type="user"
+          createdAt={otherUser?.createdAt}
           id={otherUser?.id}
           conversationId={conversationId}
           icon={otherUser?.image}

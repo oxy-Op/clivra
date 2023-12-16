@@ -24,7 +24,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning={true}>
         <body
           suppressHydrationWarning={true}
-          className={cn(open_sans.className, "")}
+          className={cn(open_sans.className, "min-h-[100%]")}
         >
           <ThemeProvider attribute="class" enableSystem defaultTheme="system">
             <ModalProvider />

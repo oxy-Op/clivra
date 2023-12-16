@@ -84,10 +84,16 @@ const EditGroup = () => {
               {!clicked ? (
                 <>
                   <div className="flex">
-                    <div>
+                    <div className="flex flex-col">
                       <h3 className="p-3 ms-2 text-xl opacity-90">
                         {label || "user"}
                       </h3>
+                      <span className="ms-4 opacity-80">
+                        Created on{" "}
+                        <span className="font-bold text-base">
+                          {new Date(data.createdAt || 0).toDateString()}
+                        </span>
+                      </span>
                     </div>
                     <div>
                       <button
@@ -163,7 +169,7 @@ const EditGroup = () => {
               </div>
             </div>
 
-            <DialogTitle className="ms-4 ps-2 text-sm border-b-2 pb-2 uppercase font-mono">
+            <DialogTitle className="ms-4 ps-2 text-sm text-start border-b-2 pb-2 uppercase font-mono">
               MEMBERS
             </DialogTitle>
             <ScrollArea className="ms-4 max-h-[200px]">

@@ -38,7 +38,7 @@ const formSchema = z.object({
 const EditProfile = () => {
   const { isOpen, onClose, type, data, onOpen } = useModal();
   const isModalOpen = isOpen && type === "editProfile";
-  const { label, icon } = data;
+  const { label, icon, createdAt } = data;
 
   const router = useRouter();
 
@@ -75,7 +75,7 @@ const EditProfile = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleModalClose}>
-      <DialogContent className="md:min-h-[400px] min-h-[200px] bg-[#f4f4f4] dark:bg-[#141414]">
+      <DialogContent className="md:min-h-[400px] md:h-auto h-full bg-[#f4f4f4] dark:bg-[#141414]">
         <DialogHeader>
           <DialogTitle className="border-b-2 pb-2 uppercase font-mono">
             Account
@@ -161,6 +161,14 @@ const EditProfile = () => {
               </Form>
             )}
             <div className="w-[80%] bg-border h-[2px] ms-4"></div>
+            <div className="w-full sm:ms-4 mt-2 p-2">
+              <span className="text-md">
+                Account created on{" "}
+                <span className="font-bold text-base">
+                  {new Date(createdAt || 0).toDateString()}
+                </span>
+              </span>
+            </div>
           </div>
         </DialogHeader>
       </DialogContent>

@@ -47,8 +47,7 @@ const NavSideBar = ({ me }: { me: User }) => {
                 src={user.image || "/user_placeholder.png"}
                 alt="user"
                 fill
-                priority
-                sizes="32px"
+                sizes="500px"
                 quality={100}
               />
             </div>
@@ -75,6 +74,7 @@ const NavSideBar = ({ me }: { me: User }) => {
                   onOpen("editProfile", {
                     label: user.name,
                     icon: user.image,
+                    createdAt: user.createdAt,
                   });
                 }}
                 variant={"outline"}

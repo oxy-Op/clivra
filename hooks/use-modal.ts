@@ -22,6 +22,7 @@ type ModalData = {
   users?: User[];
   isGroup?: boolean | null;
   me?: User | null;
+  createdAt?: Date | null;
 };
 
 interface ModalStore {

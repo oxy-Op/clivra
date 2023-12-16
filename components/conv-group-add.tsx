@@ -3,6 +3,7 @@
 import { useModal } from "@/hooks/use-modal";
 import { User } from "@prisma/client";
 import { Users } from "lucide-react";
+import { ModeToggle } from "./mode-toggle";
 
 const ConversationLabel = ({ users }: { users: User[] }) => {
   const { onOpen } = useModal();
@@ -14,18 +15,22 @@ const ConversationLabel = ({ users }: { users: User[] }) => {
           Conversations
         </p>
       </div>
-      <button
-        className="ms-auto"
-        onClick={() =>
-          onOpen("groupModal", {
-            users,
-            apiUrl: "/api/conversations",
-          })
-        }
-      >
-        <span className="sr-only">Create group</span>
-        <Users />
-      </button>
+      <div className="flex ms-auto space-x-2">
+        <div className="md:hidden inset-0">
+          <ModeToggle />
+        </div>
+        <button
+          onClick={() =>
+            onOpen("groupModal", {
+              users,
+              apiUrl: "/api/conversations",
+            })
+          }
+        >
+          <span className="sr-only">Create group</span>
+          <Users />
+        </button>
+      </div>
     </div>
   );
 };

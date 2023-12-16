@@ -36,6 +36,7 @@ const UserList = ({ users }: { users: User[] }) => {
             onOpen("profile", {
               label: user.name,
               icon: user.image,
+              createdAt: user.createdAt,
             })
           }
         >

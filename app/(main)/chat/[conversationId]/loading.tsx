@@ -7,7 +7,7 @@ const Loading = () => {
   return (
     <Channel>
       <ChatHeader type="loading" />
-      <div className="flex flex-col grow overflow-x-hidden overflow-y-auto">
+      <div className="hidden md:flex flex-col grow overflow-x-hidden overflow-y-auto">
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
@@ -22,6 +22,20 @@ const Loading = () => {
             ) : (
               <Skeleton className="w-[256px] h-12" />
             )}
+          </div>
+        ))}
+      </div>
+      <div className="flex md:hidden flex-col grow overflow-x-hidden overflow-y-auto">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div
+            key={index}
+            className={cn(
+              "flex gap-3 p-2 items-center",
+              [1, 3].includes(index) && "ms-auto lg:me-28"
+            )}
+          >
+            <Skeleton className="h-9 w-9 rounded-full" />
+            <Skeleton className="w-[256px] h-12" />
           </div>
         ))}
       </div>

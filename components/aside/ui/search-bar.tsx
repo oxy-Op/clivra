@@ -48,13 +48,13 @@ const SearchBar = ({ users }: { users: User[] }) => {
         <CommandList className="w-full">
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="People">
-            {users?.map((user) => (
-              <CommandItem key={user.id}>
+            {users?.map((user, _) => (
+              <CommandItem className="dark:hover:bg-amber-600" key={_}>
                 <UserMenu
                   id={user.id}
                   key={user.id}
                   icon={user.image}
-                  label={user.name}
+                  label={user.name + "#" + Math.floor(Math.random() * 100)}
                   className="mt-0 p-0"
                 />
               </CommandItem>

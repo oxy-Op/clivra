@@ -11,7 +11,7 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
       <div className="flex flex-col md:flex-row h-full md:space-x-2 ">
         <NavSideBar me={me} />
         {children}
-        <MobileNavBar />
+        <MobileNavBar me={me} />
       </div>
     </div>
   );

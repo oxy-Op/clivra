@@ -51,16 +51,14 @@ const ChatItem = ({
             />
           </div>
           {image && (
-            <div className="text-xs z-20">
-              {format(new Date(createdAt), "p")}
-            </div>
+            <div className="text-xs">{format(new Date(createdAt), "p")}</div>
           )}
         </div>
         <div
           tabIndex={image ? 0 : -1}
           onKeyDown={(event) => image && keyDown(event, image)}
           className={cn(
-            "relative flex flex-col gap-2 bg-[#e0dfdd] dark:bg-[#1d1d1d] border min-w-[256px] w-[300px] rounded",
+            "relative flex flex-col gap-2 bg-[#e0dfdd] dark:bg-[#1d1d1d] border min-w-[256px] w-[230px] sm:w-[300px] rounded",
             image &&
               "h-64 focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-blue-500"
           )}

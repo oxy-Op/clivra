@@ -76,7 +76,7 @@ export const MessageFileModal = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8"
           >
-            <div className="space-y-8 px-6">
+            <div className="space-y-8 md:px-6">
               <div className="flex items-center justify-center text-center">
                 <FormField
                   control={form.control}
@@ -98,7 +98,7 @@ export const MessageFileModal = () => {
                 />
               </div>
             </div>
-            <DialogFooter className="px-6 py-4">
+            <DialogFooter className="w-full md:px-6 md:py-4">
               <Button variant={"outline"} disabled={isLoading}>
                 Send attachment
               </Button>

@@ -17,7 +17,7 @@ const GlobalChat = () => {
     <button
       disabled
       className={cn(
-        "relative flex items-center w-full p-3 bg-[#a3a3a3] dark:bg-[#2f2f2f] hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] transition rounded-[12px] mb-2 cursor-not-allowed",
+        "relative flex items-center w-full p-3 bg-[#e9e8e8]/80 dark:bg-[#2f2f2f] hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] transition rounded-[12px] mb-2 cursor-not-allowed",
         isActive && "bg-[#dcdcdc] dark:bg-[#2c2c2c] disabled:cursor-not-allowed"
       )}
       onClick={handleClick}

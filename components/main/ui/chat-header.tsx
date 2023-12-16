@@ -2,7 +2,7 @@
 
 import UserMenu from "@/components/aside/ui/user-channel";
 import { UserMenuProps } from "@/lib/types";
-import { Globe, MoreVertical } from "lucide-react";
+import { ArrowLeft, Globe, MoreVertical } from "lucide-react";
 import {
   Popover,
   PopoverContent,
@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal";
 import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "@prisma/client";
+import Link from "next/link";
 
 type HeaderProps = {
   type: "user" | "global" | "loading";
@@ -25,6 +26,7 @@ const ChatHeader = ({
   status,
   isGroup,
   members,
+  createdAt,
   type,
   me,
   totalMembers,
@@ -38,7 +40,12 @@ const ChatHeader = ({
   const { onOpen } = useModal();
 
   return (
-    <header className="flex items-center border w-full p-2">
+    <header className="flex z-10 items-center border w-full p-2">
+      <button className="lg:hidden pe-2">
+        <Link href={`/chat`}>
+          <ArrowLeft />
+        </Link>
+      </button>
       {type === "user" && (
         <>
           <UserMenu
@@ -48,12 +55,19 @@ const ChatHeader = ({
             onClick={
               !isGroup
                 ? () => {
-                    onOpen("profile", { label, icon, status, isGroup });
+                    onOpen("profile", {
+                      label,
+                      icon,
+                      status,
+                      isGroup,
+                      createdAt,
+                    });
                   }
                 : () =>
                     onOpen("editGroup", {
                       label,
                       icon,
+                      createdAt,
                       conversationId: id,
                       users: members,
                       me: me,

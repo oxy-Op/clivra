@@ -90,7 +90,7 @@ export const GroupAddModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="overflow-hidden">
+      <DialogContent className="overflow-hidden space-y-4 md:block flex flex-col justify-start h-full sm:h-auto md:max-w-lg max-w-none">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
             Create a group

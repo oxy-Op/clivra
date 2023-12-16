@@ -1,7 +1,7 @@
 import Empty from "@/components/empty-area";
 
 const ChatArea = () => {
-  return <Empty />;
+  return <Empty mobile />;
 };
 
 export default ChatArea;

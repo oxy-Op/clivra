@@ -78,7 +78,7 @@ export const EditImage = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-8"
           >
-            <div className="space-y-8 px-6">
+            <div className="space-y-8 md:px-6">
               <div className="flex items-center justify-center text-center">
                 <FormField
                   control={form.control}

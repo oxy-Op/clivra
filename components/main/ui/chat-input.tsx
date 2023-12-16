@@ -68,9 +68,9 @@ const ChatInput = ({ conversationId }: { conversationId: string }) => {
           render={({ field }) => (
             <FormItem>
               <FormControl className="w-full">
-                <div className="flex items-center justify-center mt-auto mb-5 w-full pt-5">
-                  <div className="flex items-center justify-center mx-auto w-full p-2 md:w-[80%] relative pt-2  border-t-2 max-h-[200px]">
-                    <div className="absolute flex items-center justify-around left-0">
+                <div className="flex items-center justify-center mt-auto sm:mb-5 mb-8 w-full pt-5">
+                  <div className="flex items-center justify-center mx-auto w-full p-2 md:w-[80%] relative pt-2  border-t-2 max-h-[200px] ">
+                    <div className="ms-4 sm:ms-0 absolute flex items-center justify-around left-0 ">
                       <div
                         tabIndex={0}
                         onKeyDown={keyDown}
@@ -93,7 +93,7 @@ const ChatInput = ({ conversationId }: { conversationId: string }) => {
                     <Input
                       aria-required
                       aria-label="Type your message here"
-                      className="px-20 py-6 bg-zinc-200/90 dark:bg-[#2c2c2c] border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200 overflow-y-auto"
+                      className="px-20 py-6 bg-zinc-200/90 dark:bg-[#2c2c2c] border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200 overflow-y-auto ms-4 sm:ms-0"
                       type="text"
                       id="chat"
                       placeholder="Message"

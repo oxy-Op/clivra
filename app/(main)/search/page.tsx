@@ -21,7 +21,7 @@ const SearchNav = async () => {
           <UserList users={users} />
         </ScrollArea>
       </AsideBar>
-      <Empty />
+      <Empty mobile />
     </>
   );
 };
