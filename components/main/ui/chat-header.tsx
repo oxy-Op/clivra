@@ -41,8 +41,8 @@ const ChatHeader = ({
 
   return (
     <header className="flex z-10 items-center border w-full p-2">
-      <button className="lg:hidden pe-2">
-        <Link href={`/chat`}>
+      <button className="lg:hidden pe-2" aria-label="Back">
+        <Link href={`/chat`} aria-label="Back">
           <ArrowLeft />
         </Link>
       </button>

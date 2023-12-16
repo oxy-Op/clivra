@@ -10,8 +10,8 @@ const Empty = ({ mobile }: { mobile?: boolean }) => {
         mobile ? "hidden lg:flex" : "flex"
       )}
     >
-      <button className="md:hidden absolute top-4 left-4">
-        <Link href={`/chat`}>
+      <button className="md:hidden absolute top-4 left-4" aria-label="Back">
+        <Link href={`/chat`} aria-label="Back">
           <ArrowLeft />
         </Link>
       </button>

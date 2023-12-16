@@ -12,6 +12,14 @@ const open_sans = Open_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Clivra - Chat App",
   description: "Chat with your friends, family and the world",
+  openGraph: {
+    title: "Clivra",
+    description: "Chat with your friends, family and the world",
+    url: "https://clivra.com",
+    siteName: "Clivra",
+    type: "website",
+    images: ["/favicon.ico"],
+  },
 };
 
 export default function RootLayout({
