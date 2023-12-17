@@ -15,10 +15,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Clivra",
     description: "Chat with your friends, family and the world",
-    url: "https://clivra.com",
+    url: "https://clivra.vercel.app/",
     siteName: "Clivra",
     type: "website",
-    images: ["/favicon.ico"],
+    images: ["https://clivra.vercel.app/favicon.ico"],
   },
 };
 

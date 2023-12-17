@@ -40,12 +40,10 @@ const ChatHeader = ({
   const { onOpen } = useModal();
 
   return (
-    <header className="flex z-10 items-center border w-full p-2">
-      <button className="lg:hidden pe-2" aria-label="Back">
-        <Link href={`/chat`} aria-label="Back">
-          <ArrowLeft />
-        </Link>
-      </button>
+    <header className="flex z-10 items-center border w-full h-16 min-h-[50px] p-2">
+      <Link className="lg:hidden pe-2" href={`/chat`} aria-label="Back">
+        <ArrowLeft />
+      </Link>
       {type === "user" && (
         <>
           <UserMenu
@@ -76,7 +74,7 @@ const ChatHeader = ({
             label={label}
             status={status}
             status_text={isGroup ? `${totalMembers} members` : ""}
-            className="w-[30%] p-0 pb-1 dark:hover:bg-transparent hover:bg-transparent"
+            className="md:w-[30%]  p-0 pb-1 dark:hover:bg-transparent hover:bg-transparent"
           />
           <div className="ms-auto me-4">
             <Popover>

@@ -11,10 +11,12 @@ import { SignOutButton } from "@clerk/nextjs";
 import { useModal } from "@/hooks/use-modal";
 import { useEffect, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
+import { Loader2 } from "lucide-react";
 
 const NavSideBar = ({ me }: { me: User }) => {
   const [user, setUser] = useState(me);
   const { onOpen } = useModal();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const handler = (data: User) => {
@@ -83,8 +85,17 @@ const NavSideBar = ({ me }: { me: User }) => {
                 Edit Profile
               </Button>
               <SignOutButton>
-                <Button variant={"outline"} className="w-full">
+                <Button
+                  onClick={() => setLoading(true)}
+                  variant={"outline"}
+                  className="w-full"
+                >
                   Log out
+                  {loading && (
+                    <span className="ms-2">
+                      <Loader2 className="animate-spin w-4 h-4 motion-reduce:disabled:animate-none" />
+                    </span>
+                  )}
                 </Button>
               </SignOutButton>
             </div>

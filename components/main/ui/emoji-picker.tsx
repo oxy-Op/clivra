@@ -24,9 +24,9 @@ export const EmojiPicker = ({ onChange }: EmojiPickerProps) => {
         <Smile className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300 transition" />
       </PopoverTrigger>
       <PopoverContent
-        side="right"
-        sideOffset={40}
-        className="bg-transparent border-none shadow-none drop-shadow-none mb-16"
+        // side="right"
+        // sideOffset={40}
+        className="bg-transparent border-none shadow-none drop-shadow-none"
       >
         <Picker
           data={data}

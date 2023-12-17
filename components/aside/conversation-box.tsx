@@ -3,9 +3,10 @@
 import { FullConversationType, UserMenuProps } from "@/lib/types";
 import { useParams } from "next/navigation";
 import UserMenu from "./ui/user-channel";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const ConversationBox = ({
   data,
@@ -59,7 +60,7 @@ const ConversationBox = ({
       status={status}
       isGroup={data.isGroup}
       status_text={lastMessageContent}
-      className="dark:hover:bg-[#2c2c2c] hover:bg-[#bbbbbb]"
+      className={cn("dark:hover:bg-[#2c2c2c] hover:bg-[#bbbbbb]")}
       isActive={isActive}
     />
   );

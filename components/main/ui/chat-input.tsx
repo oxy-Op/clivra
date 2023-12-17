@@ -102,6 +102,7 @@ const ChatInput = ({ conversationId }: { conversationId: string }) => {
                     />
                     <button
                       type="submit"
+                      aria-label="Send message"
                       className={cn(
                         "absolute right-4 w-8 h-8 rounded hidden justify-center items-center bg-blue-600 transition hover:rounded-md hover:bg-blue-500",
                         field.value.length > 0 ? "flex" : "hidden"

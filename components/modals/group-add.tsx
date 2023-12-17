@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { useModal } from "@/hooks/use-modal";
 import { Input } from "../ui/input";
+import { Loader2 } from "lucide-react";
 
 export const GroupAddModal = () => {
   const { isOpen, onClose, type, data } = useModal();
@@ -204,7 +205,11 @@ export const GroupAddModal = () => {
             </div>
             <DialogFooter className="px-6 py-4">
               <Button type="submit" variant={"outline"} disabled={isLoading}>
-                Create Group
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  "Create Group"
+                )}
               </Button>
             </DialogFooter>
           </form>

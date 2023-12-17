@@ -10,11 +10,13 @@ const Empty = ({ mobile }: { mobile?: boolean }) => {
         mobile ? "hidden lg:flex" : "flex"
       )}
     >
-      <button className="md:hidden absolute top-4 left-4" aria-label="Back">
-        <Link href={`/chat`} aria-label="Back">
-          <ArrowLeft />
-        </Link>
-      </button>
+      <Link
+        className="md:hidden absolute top-4 left-4"
+        href={`/chat`}
+        aria-label="Back"
+      >
+        <ArrowLeft />
+      </Link>
       <div className="w-full flex flex-col gap-y-6 items-center justify-center">
         <Zap className="w-24 h-24 border rounded-full p-4" />
         <h3 className="opacity-70">Start an conversation</h3>

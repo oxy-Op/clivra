@@ -6,6 +6,7 @@ import { UserMenuProps } from "@/lib/types";
 import { useCallback, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 const UserMenu = ({
   id,
@@ -16,15 +17,16 @@ const UserMenu = ({
   className,
   status_text,
   isGroup,
-  seen,
+  isLoading,
   isCurrentUser,
   onClick,
 }: UserMenuProps & { onClick?: () => void } & {
   seen?: boolean;
   isCurrentUser?: boolean;
+  isLoading?: boolean;
 }) => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(isLoading || false);
 
   const handleClick = useCallback(() => {
     setLoading(true);
@@ -85,10 +87,17 @@ const UserMenu = ({
           ></span>
         )}
       </div>
-      <div className="flex flex-col ms-3 max-w-[150px]">
-        <span aria-label={label!} className={cn(loading && "animate-pulse")}>
-          {label}
-        </span>
+      <div className="flex flex-col ms-3">
+        <div className="flex items-center space-x-2">
+          <span aria-label={label!} className={cn(loading && "animate-pulse")}>
+            {label}
+          </span>
+          <span>
+            {loading && (
+              <Loader2 className="animate-spin w-4 h-4 motion-reduce:disabled:animate-none" />
+            )}
+          </span>
+        </div>
         {status_text && (
           <span className="text-xs text-zinc-800 dark:text-neutral-300 font-semibold truncate">
             {status_text}

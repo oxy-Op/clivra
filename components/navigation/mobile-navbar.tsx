@@ -12,9 +12,11 @@ import { useEffect, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { useConversation } from "@/hooks/isConversationOpen";
 import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 
 const MobileNavBar = ({ me }: { me: User }) => {
   const [user, setUser] = useState(me);
+  const [loading, setLoading] = useState(false);
 
   const { onOpen } = useModal();
   const { isOpen } = useConversation();
@@ -24,8 +26,6 @@ const MobileNavBar = ({ me }: { me: User }) => {
       setUser(data);
       console.log("handler executed");
     };
-
-    console.log(me.id);
 
     pusherClient.subscribe(me.id);
     pusherClient.bind("user:update", handler);
@@ -90,8 +90,17 @@ const MobileNavBar = ({ me }: { me: User }) => {
                 Edit Profile
               </Button>
               <SignOutButton>
-                <Button variant={"outline"} className="w-full">
+                <Button
+                  onClick={() => setLoading(true)}
+                  variant={"outline"}
+                  className="w-full"
+                >
                   Log out
+                  {loading && (
+                    <span className="ms-2">
+                      <Loader2 className="animate-spin w-4 h-4 motion-reduce:disabled:animate-none" />
+                    </span>
+                  )}
                 </Button>
               </SignOutButton>
             </div>

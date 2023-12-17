@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "../ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 const DeleteConversation = () => {
   const { isOpen, onClose, type, data } = useModal();
@@ -55,8 +56,14 @@ const DeleteConversation = () => {
           Cancel
         </Button>
         <Button disabled={loading} onClick={onDelete} variant={"destructive"}>
-          Delete
-          <span className="sr-only">Delete Conversation</span>
+          {loading ? (
+            <Loader2 className="animate-spin mr-2 h-4 w-4" />
+          ) : (
+            "Delete"
+          )}
+          <span className="sr-only">
+            {loading ? "Deleting" : "Delete Conversation"}
+          </span>
         </Button>
       </DialogContent>
     </Dialog>

@@ -18,6 +18,7 @@ import {
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useModal } from "@/hooks/use-modal";
 import { UploadFile } from "../upload-file";
+import { Loader2 } from "lucide-react";
 
 export const EditImage = () => {
   const { isOpen, onClose, type, data } = useModal();
@@ -102,7 +103,11 @@ export const EditImage = () => {
             </div>
             <DialogFooter className="px-6 py-4">
               <Button variant={"outline"} disabled={isLoading}>
-                Edit {isGroup ? "Group Image" : "Avatar"}
+                {isLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  "Edit"
+                )}
               </Button>
             </DialogFooter>
           </form>

@@ -18,6 +18,7 @@ import {
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useModal } from "@/hooks/use-modal";
 import { UploadFile } from "../upload-file";
+import { Loader2 } from "lucide-react";
 
 export const MessageFileModal = () => {
   const { isOpen, onClose, type, data } = useModal();
@@ -100,7 +101,11 @@ export const MessageFileModal = () => {
             </div>
             <DialogFooter className="w-full md:px-6 md:py-4">
               <Button variant={"outline"} disabled={isLoading}>
-                Send attachment
+                {isLoading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  "Send attachment"
+                )}
               </Button>
             </DialogFooter>
           </form>
