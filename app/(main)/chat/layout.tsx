@@ -24,7 +24,7 @@ export default async function ChatLayout({
         <Separator className="mt-1" />
         <ConversationLabel users={users} />
         <Separator className="mt-1" />
-        <ScrollArea className="h-full w-full">
+        <ScrollArea className="h-full w-full overflow-auto">
           <ConversationList currentUser={currentUser} items={conversations} />
         </ScrollArea>
       </AsideBar>

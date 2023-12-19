@@ -10,6 +10,7 @@ import { GroupAddModal } from "../modals/group-add";
 import EditGroup from "../modals/edit-group";
 import DeleteConversation from "../modals/delete-conversation";
 import { Toaster } from "../ui/toaster";
+import SettingsModal from "../modals/settings";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -33,6 +34,7 @@ export const ModalProvider = () => {
       <EditGroup />
       <DeleteConversation />
       <Toaster />
+      <SettingsModal />
     </>
   );
 };

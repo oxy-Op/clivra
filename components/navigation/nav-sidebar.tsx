@@ -41,7 +41,7 @@ const NavSideBar = ({ me }: { me: User }) => {
         <GoToSearch />
       </div>
       <div className="mt-auto flex flex-col space-y-4  mb-2 ">
-        <ModeToggle />
+        {/* <ModeToggle /> */}
         <Popover>
           <PopoverTrigger>
             <TooltipShow text="Profile" side="top">
@@ -79,7 +79,7 @@ const NavSideBar = ({ me }: { me: User }) => {
             <div className="flex flex-col w-full justify-center items-center space-y-2">
               <Button
                 onClick={() => {
-                  onOpen("editProfile", {
+                  onOpen("settings", {
                     label: user.name,
                     icon: user.image,
                     createdAt: user.createdAt,
@@ -88,7 +88,7 @@ const NavSideBar = ({ me }: { me: User }) => {
                 variant={"outline"}
                 className="w-full"
               >
-                Edit Profile
+                Settings
               </Button>
               <SignOutButton>
                 <Button

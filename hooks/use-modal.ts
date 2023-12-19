@@ -9,7 +9,8 @@ export type ModalType =
   | "editImage"
   | "groupModal"
   | "editGroup"
-  | "deleteConversation";
+  | "deleteConversation"
+  | "settings";
 
 type ModalData = {
   label?: string | null;

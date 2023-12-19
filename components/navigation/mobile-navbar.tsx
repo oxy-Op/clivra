@@ -50,7 +50,7 @@ const MobileNavBar = ({ me }: { me: User }) => {
           <PopoverTrigger>
             <div className="relative h-8 w-8 ring-2 rounded-full" tabIndex={0}>
               <Image
-                className="rounded-full object-cover"
+                className="rounded-full object-cover pointer-events-none"
                 src={user.image || "/user_placeholder.png"}
                 alt="user"
                 fill
@@ -78,7 +78,7 @@ const MobileNavBar = ({ me }: { me: User }) => {
             <div className="flex flex-col w-full justify-center items-center space-y-2">
               <Button
                 onClick={() => {
-                  onOpen("editProfile", {
+                  onOpen("settings", {
                     label: user.name,
                     icon: user.image,
                     createdAt: user.createdAt,
@@ -87,7 +87,7 @@ const MobileNavBar = ({ me }: { me: User }) => {
                 variant={"outline"}
                 className="w-full"
               >
-                Edit Profile
+                Settings
               </Button>
               <SignOutButton>
                 <Button

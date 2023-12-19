@@ -17,9 +17,7 @@ const ConversationLabel = ({ users }: { users: User[] }) => {
         </p>
       </div>
       <div className="flex ms-auto space-x-2">
-        <div className="md:hidden inset-0">
-          <ModeToggle />
-        </div>
+        <div className="md:hidden inset-0">{/* <ModeToggle /> */}</div>
         <TooltipShow text="Create group" side="right">
           <button
             className="hover:bg-[#d2d2d2] dark:hover:bg-[#262626] p-2 rounded"
