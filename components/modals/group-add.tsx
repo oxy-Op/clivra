@@ -97,7 +97,7 @@ export const GroupAddModal = () => {
             Create a group
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Group chats allows you to chat with more than one person
+            Create group chat and talk with everyone at one place
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

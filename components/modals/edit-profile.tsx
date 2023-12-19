@@ -23,6 +23,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { TooltipShow } from "../providers/tooltip-provider";
 
 const formSchema = z.object({
   username: z
@@ -98,7 +99,9 @@ const EditProfile = () => {
                 className="group-hover:flex items-center justify-center hidden absolute w-full h-full
               rounded-full bg-slate-500 bg-opacity-70"
               >
-                <Edit2 />
+                <TooltipShow text="Edit avatar">
+                  <Edit2 />
+                </TooltipShow>
                 <span className="sr-only">Edit avatar</span>
               </div>
               {/* <span
@@ -120,7 +123,9 @@ const EditProfile = () => {
                     className="hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] p-2 rounded-md"
                     onClick={() => setClicked(true)}
                   >
-                    <EditIcon />
+                    <TooltipShow text="Edit username">
+                      <EditIcon />
+                    </TooltipShow>
                     <span className="sr-only">Edit username</span>
                   </button>
                 </div>

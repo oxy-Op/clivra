@@ -5,7 +5,12 @@ import { useEffect } from "react";
 
 const ChatArea = () => {
   useEffect(() => {
-    localStorage.setItem("theme", "dark");
+    if (
+      !localStorage.getItem("theme") ||
+      localStorage.getItem("theme") === undefined
+    ) {
+      localStorage.setItem("theme", "dark");
+    }
   }, []);
 
   return <Empty mobile />;

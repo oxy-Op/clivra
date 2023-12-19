@@ -7,6 +7,7 @@ import { useCallback, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { TooltipShow } from "@/components/providers/tooltip-provider";
 
 const UserMenu = ({
   id,
@@ -64,7 +65,7 @@ const UserMenu = ({
       className={cn(
         "flex cursor-pointer w-full items-center  py-1 ps-2 mt-1 p-2",
         className,
-        isActive && "bg-[#c8c8c5] dark:bg-[#2c2c2c]",
+        isActive && "bg-[#d7d7d7] rounded-sm dark:bg-[#2c2c2c]",
         loading && "pointer-events-none"
       )}
       tabIndex={0}
@@ -78,20 +79,25 @@ const UserMenu = ({
           sizes="32px"
           quality={100}
         />
-        {!isGroup && status && (
+        {/* {!isGroup && status && (
           <span
             className={cn(
               "absolute bottom-0 right-0 rounded-full w-2 h-2 ring-2 ring-[#f3f2e9] dark:ring-[#141414]",
               status === "active" ? "bg-green-500/80" : "bg-red-500/80"
             )}
           ></span>
-        )}
+        )} */}
       </div>
       <div className="flex flex-col ms-3">
         <div className="flex items-center space-x-2">
-          <span aria-label={label!} className={cn(loading && "animate-pulse")}>
-            {label}
-          </span>
+          <TooltipShow text={label!}>
+            <span
+              aria-label={label!}
+              className={cn(loading && "animate-pulse")}
+            >
+              {label}
+            </span>
+          </TooltipShow>
           <span>
             {loading && (
               <Loader2 className="animate-spin w-4 h-4 motion-reduce:disabled:animate-none" />

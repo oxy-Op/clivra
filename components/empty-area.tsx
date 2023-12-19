@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { ArrowLeft, Zap } from "lucide-react";
 import Link from "next/link";
 
-const Empty = ({ mobile }: { mobile?: boolean }) => {
+const Empty = ({ mobile, text }: { mobile?: boolean; text?: string }) => {
   return (
     <div
       className={cn(
@@ -19,7 +19,7 @@ const Empty = ({ mobile }: { mobile?: boolean }) => {
       </Link>
       <div className="w-full flex flex-col gap-y-6 items-center justify-center">
         <Zap className="w-24 h-24 border rounded-full p-4" />
-        <h3 className="opacity-70">Start an conversation</h3>
+        <h3 className="opacity-70">{text || "Start an conversation"}</h3>
       </div>
     </div>
   );

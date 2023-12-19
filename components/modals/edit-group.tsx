@@ -25,6 +25,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "../ui/scroll-area";
 import UserMenu from "../aside/ui/user-channel";
+import { TooltipShow } from "../providers/tooltip-provider";
 
 const formSchema = z.object({
   name: z
@@ -100,7 +101,9 @@ const EditGroup = () => {
                         className="hover:bg-[#dcdcdc] dark:hover:bg-[#2c2c2c] p-3 rounded-md"
                         onClick={() => setClicked(true)}
                       >
-                        <EditIcon />
+                        <TooltipShow text="Edit Group Name">
+                          <EditIcon />
+                        </TooltipShow>
                         <span className="sr-only">Edit Group Name</span>
                       </button>
                     </div>
@@ -162,7 +165,9 @@ const EditGroup = () => {
                     className="group-hover:flex items-center justify-center hidden absolute w-full h-full
               rounded-full bg-slate-500 bg-opacity-70"
                   >
-                    <Edit2 />
+                    <TooltipShow text="Edit Group Image" side="right">
+                      <Edit2 />
+                    </TooltipShow>
                     <span className="sr-only">Edit Group Image</span>
                   </div>
                 </div>

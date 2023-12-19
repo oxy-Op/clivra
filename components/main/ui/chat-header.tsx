@@ -13,6 +13,7 @@ import { useModal } from "@/hooks/use-modal";
 import { Skeleton } from "@/components/ui/skeleton";
 import { User } from "@prisma/client";
 import Link from "next/link";
+import { TooltipShow } from "@/components/providers/tooltip-provider";
 
 type HeaderProps = {
   type: "user" | "global" | "loading";
@@ -40,7 +41,7 @@ const ChatHeader = ({
   const { onOpen } = useModal();
 
   return (
-    <header className="flex z-10 items-center border w-full h-16 min-h-[50px] p-2">
+    <header className="flex z-10 items-center border w-full h-20 min-h-[70px] p-2">
       <Link className="lg:hidden pe-2" href={`/chat`} aria-label="Back">
         <ArrowLeft />
       </Link>
@@ -76,11 +77,13 @@ const ChatHeader = ({
             status_text={isGroup ? `${totalMembers} members` : ""}
             className="md:w-[30%]  p-0 pb-1 dark:hover:bg-transparent hover:bg-transparent"
           />
-          <div className="ms-auto me-4">
+          <div className="ms-auto me-4 p-2 rounded-full hover:bg-[#e6e5d8] dark:hover:bg-[#2c2c2c]">
             <Popover>
               <PopoverTrigger aria-label="More Button">
+                <TooltipShow text="More">
+                  <MoreVertical className="h-6 w-6" />
+                </TooltipShow>
                 <span className="sr-only">More Button</span>
-                <MoreVertical className="rounded-full hover:bg-[#e6e5d8] dark:hover:bg-[#2c2c2c]" />
               </PopoverTrigger>
               <PopoverContent>
                 <Button

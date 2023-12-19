@@ -108,7 +108,7 @@ const ChatInput = ({ conversationId }: { conversationId: string }) => {
                         field.value.length > 0 ? "flex" : "hidden"
                       )}
                     >
-                      <ArrowRight />
+                      <ArrowRight className="text-white" />
                     </button>
                   </div>
                 </div>

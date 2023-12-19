@@ -9,7 +9,7 @@ export default function AsideBar({ children }: { children: React.ReactNode }) {
   return (
     <aside
       className={cn(
-        "flex flex-col w-full flex-grow-0 items-center lg:w-[300px] border rounded p-2 h-full",
+        "flex flex-col w-full dark:bg-[#1d1f1f] flex-grow-0 items-center lg:w-[300px] border rounded p-2 h-full md:ms-1",
         isOpen ? "hidden lg:flex" : ""
       )}
     >

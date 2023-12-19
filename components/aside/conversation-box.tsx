@@ -39,8 +39,10 @@ const ConversationBox = ({
       return "Sent an image";
     }
 
-    if (lastMessage?.body) {
+    if (lastMessage?.body && lastMessage.body.length < 30) {
       return lastMessage.body;
+    } else {
+      return "Sent a message";
     }
 
     if (data.isGroup) {
@@ -60,7 +62,10 @@ const ConversationBox = ({
       status={status}
       isGroup={data.isGroup}
       status_text={lastMessageContent}
-      className={cn("dark:hover:bg-[#2c2c2c] hover:bg-[#bbbbbb]")}
+      className={cn(
+        "dark:hover:bg-[#2c2c2c] hover:bg-[#e4e4e4c6] rounded",
+        "p-3"
+      )}
       isActive={isActive}
     />
   );

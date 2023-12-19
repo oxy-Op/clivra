@@ -39,7 +39,7 @@ const MobileNavBar = ({ me }: { me: User }) => {
   return (
     <div
       className={cn(
-        "md:hidden flex space-x-6 justify-around items-center p-2 w-full",
+        "md:hidden flex fixed bottom-0 bg-background dark:bg-[#1d1f1f] space-x-6 justify-around items-center p-2 w-full",
         isOpen && "hidden"
       )}
     >

@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { User } from "@prisma/client";
 import Image from "next/image";
 import { format } from "date-fns";
+import { TooltipShow } from "@/components/providers/tooltip-provider";
 
 const ChatItem = ({
   id,
@@ -36,36 +37,49 @@ const ChatItem = ({
   return (
     <div
       role="listitem"
-      className={cn("flex flex-col p-2", isMe && "ms-auto lg:me-28")}
+      className={cn("flex flex-col relative", isMe && "ms-auto lg:me-28")}
     >
-      <div className="flex gap-3">
-        <div className="flex flex-col items-center space-y-2">
-          <div className="relative w-9 h-9 inline-block overflow-hidden">
-            <Image
-              className="rounded-full object-cover"
-              src={sender.image || "/user_placeholder.png"}
-              alt={"user avatar"}
-              fill
-              sizes="36px"
-              quality={100}
-            />
+      <div
+        className={cn(
+          "flex p-2 items-center",
+          isMe && !image && "bg-blue-400 dark:bg-transparent rounded-sm mb-1"
+        )}
+      >
+        <div className="flex flex-col self-start items-center space-y-2 relative">
+          <div className="relative w-9 h-9 inline-block overflow-hidden rounded me-3">
+            <TooltipShow text={sender.name || "User"}>
+              <Image
+                className="rounded-full object-cover"
+                src={sender.image || "/user_placeholder.png"}
+                alt={"user avatar"}
+                fill
+                sizes="36px"
+                quality={100}
+              />
+            </TooltipShow>
           </div>
-          {image && (
-            <div className="text-xs">{format(new Date(createdAt), "p")}</div>
-          )}
+          <div
+            className={cn(
+              "text-xs me-2",
+              !isMe && "ms-2",
+              isMe && "text-white dark:text-inherit"
+            )}
+          >
+            {format(new Date(createdAt), "p")}
+          </div>
         </div>
         <div
           tabIndex={image ? 0 : -1}
           onKeyDown={(event) => image && keyDown(event, image)}
           className={cn(
-            "relative flex flex-col gap-2 bg-[#e0dfdd] dark:bg-[#1d1d1d] border min-w-[256px] w-[230px] sm:w-[300px] rounded",
+            "relative flex flex-col gap-2 bg-blue-400 dark:bg-[#1d1d1d] min-w-[256px] w-[230px] sm:w-[300px] rounded",
             image &&
-              "h-64 focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-blue-500"
+              "h-64 focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-blue-500 rounded"
           )}
         >
           {image && (
             <Image
-              className="object-cover"
+              className="object-cover rounded"
               onClick={() => handleImageClick(image)}
               src={image}
               fill
@@ -77,23 +91,28 @@ const ChatItem = ({
           )}
           {!image && (
             <>
-              <div className="flex items-center gap-2">
+              {/* <div className="flex items-center gap-2">
                 <div className="ms-2 text-sm font-semibold">{sender.name}</div>
                 <div className="text-xs  dark:text-neutral-300">
                   {format(new Date(createdAt), "p")}
                 </div>
-              </div>
-              <div className="ms-3 text-sm w-fit overflow-hidden">
-                <span className="break-all pr-2 text-md">{body}</span>
+              </div> */}
+              <div
+                className={cn(
+                  "ms-3 text-sm w-fit overflow-hidden",
+                  "mt-2 pb-2"
+                )}
+              >
+                <span className="break-word text-white text-md">{body}</span>
               </div>
             </>
           )}
         </div>
       </div>
       {isLastMessage && isMe && seenList.length > 0 && (
-        <div className="ms-auto text-xs font-base text-gray-500">
-          {`Seen by ${seenList}`}
-        </div>
+        <div
+          className={cn("ms-auto text-xs font-base")}
+        >{`Seen by ${seenList}`}</div>
       )}
     </div>
   );

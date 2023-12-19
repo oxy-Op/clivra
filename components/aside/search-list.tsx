@@ -25,7 +25,7 @@ const UserList = ({ users }: { users: User[] }) => {
           icon={user.image}
           label={user.name}
           // status={"active"}
-          className="hover:bg-[#c7c7c7] dark:hover:bg-[#1d1d1d]"
+          className="hover:bg-[#c7c7c7] rounded dark:hover:bg-[#1d1d1d]"
         />
       </ContextMenuTrigger>
       <ContextMenuContent className="w-[200px]">

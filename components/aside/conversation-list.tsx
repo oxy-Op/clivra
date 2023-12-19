@@ -7,6 +7,7 @@ import { useEffect, useMemo, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { find } from "lodash";
 import { useParams, useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 export default function ConversationList({
   items,
@@ -79,9 +80,18 @@ export default function ConversationList({
   return (
     <div className="w-full">
       {conv.length === 0 && (
-        <p className="text-center text-xs mt-12 text-zinc-400">
-          Conversations started with people will appear here
-        </p>
+        <div className="flex flex-col justify-center items-center h-full w-full space-y-5">
+          <p className="text-center text-xs mt-12 text-zinc-400">
+            Conversations started with people will appear here
+          </p>
+          <Button
+            onClick={() => router.push("/search")}
+            type="button"
+            variant={"default"}
+          >
+            Start chatting
+          </Button>
+        </div>
       )}
       {conv.map((conversation) => (
         <ConversationBox

@@ -67,7 +67,7 @@ const Chat = ({
   return (
     <div
       role="list"
-      className="flex flex-col grow overflow-x-hidden sm:overflow-y-auto overflow-y-scroll"
+      className="flex flex-col grow overflow-x-hidden sm:overflow-y-auto overflow-y-scroll dark:background-main"
       aria-live="polite"
     >
       {messages.map((message, i) => (

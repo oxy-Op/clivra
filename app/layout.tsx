@@ -1,17 +1,21 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 
-const open_sans = Open_Sans({ subsets: ["latin"] });
+const poppins = Poppins({
+  weight: ["400"],
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   title: "Clivra - Chat App",
   description: "Chat with your friends, family and the world",
+  metadataBase: new URL("https://clivra.vercel.app/"),
   openGraph: {
     title: "Clivra",
     description: "Chat with your friends, family and the world",
@@ -32,7 +36,7 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning={true}>
         <body
           suppressHydrationWarning={true}
-          className={cn(open_sans.className, "min-h-[100%]")}
+          className={cn(poppins.className, "min-h-[100%]")}
         >
           <ThemeProvider attribute="class" enableSystem defaultTheme="system">
             <ModalProvider />

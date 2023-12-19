@@ -12,6 +12,7 @@ import { useModal } from "@/hooks/use-modal";
 import { useEffect, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { Loader2 } from "lucide-react";
+import { TooltipShow } from "../providers/tooltip-provider";
 
 const NavSideBar = ({ me }: { me: User }) => {
   const [user, setUser] = useState(me);
@@ -34,7 +35,7 @@ const NavSideBar = ({ me }: { me: User }) => {
   }, [me.id]);
 
   return (
-    <nav className="hidden relative md:flex flex-col items-center w-[72px] h-full border p-4">
+    <nav className="hidden dark:bg-[#1d1f1f]/80 relative md:flex flex-col items-center w-[72px] h-full border p-4">
       <div className="flex flex-col space-y-4">
         <GotoChat />
         <GoToSearch />
@@ -43,16 +44,21 @@ const NavSideBar = ({ me }: { me: User }) => {
         <ModeToggle />
         <Popover>
           <PopoverTrigger>
-            <div className="relative h-8 w-8 ring-2 rounded-full" tabIndex={0}>
-              <Image
-                className="rounded-full object-cover"
-                src={user.image || "/user_placeholder.png"}
-                alt="user"
-                fill
-                sizes="500px"
-                quality={100}
-              />
-            </div>
+            <TooltipShow text="Profile" side="top">
+              <div
+                className="relative h-8 w-8 ring-2 rounded-full"
+                tabIndex={0}
+              >
+                <Image
+                  className="rounded-full object-cover"
+                  src={user.image || "/user_placeholder.png"}
+                  alt="user"
+                  fill
+                  sizes="500px"
+                  quality={100}
+                />
+              </div>
+            </TooltipShow>
           </PopoverTrigger>
           <PopoverContent className="flex-col space-y-2 w-[300px] h-[200px] ml-4">
             <div className="flex items-center gap-x-4 border-b-2 pb-2">
