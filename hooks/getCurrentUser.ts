@@ -16,7 +16,7 @@ async function getCurrentUser() {
     },
   });
 
-  if (profile) {
+  if (profile?.name) {
     log("[PROFILE_FOUND_CURRENT]", profile.name);
     return profile;
   }

@@ -8,6 +8,7 @@ import { pusherClient } from "@/lib/pusher";
 import { find } from "lodash";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "../ui/button";
+import { Loader2 } from "lucide-react";
 
 export default function ConversationList({
   items,
@@ -16,6 +17,7 @@ export default function ConversationList({
   items: FullConversationType[];
 } & { currentUser: User | null }) {
   const [conv, setConv] = useState(items);
+  const [loading, setLoading] = useState(false);
   const params = useParams();
   const router = useRouter();
 
@@ -84,12 +86,23 @@ export default function ConversationList({
           <p className="text-center text-xs mt-12 text-zinc-400">
             Conversations started with people will appear here
           </p>
+          <p className="text-center text-xs text-zinc-400 mt-4">
+            You have no conversations yet.
+          </p>
           <Button
-            onClick={() => router.push("/search")}
+            onClick={() => {
+              setLoading(true);
+              router.push("/search");
+            }}
             type="button"
-            variant={"default"}
+            className="border-2"
+            variant={"ghost"}
           >
-            Start chatting
+            {loading ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              "Start chatting"
+            )}
           </Button>
         </div>
       )}

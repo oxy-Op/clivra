@@ -7,6 +7,9 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { pusherClient } from "@/lib/pusher";
 import { find } from "lodash";
+import { useChatContext } from "./chat-context";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const Chat = ({
   chat,
@@ -19,6 +22,8 @@ const Chat = ({
 }) => {
   const [messages, setMessages] = useState(chat);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const { isProcessing, tempMessage, setProcessing, setTempMessage } =
+    useChatContext();
 
   useEffect(() => {
     axios.post(`/api/conversations/${conversationId}/seen`);
@@ -35,6 +40,9 @@ const Chat = ({
         if (find(current, { id: message.id })) {
           return current;
         }
+
+        setProcessing(false);
+        setTempMessage(null);
 
         return [...current, message];
       });
@@ -62,7 +70,7 @@ const Chat = ({
       pusherClient.unbind("messages:new", messageHandler);
       pusherClient.unbind("message:update", updateMessageHandler);
     };
-  }, [conversationId]);
+  }, [conversationId, setProcessing, setTempMessage, tempMessage]);
 
   return (
     <div
@@ -78,6 +86,44 @@ const Chat = ({
           isLastMessage={i === chat.length - 1}
         />
       ))}
+      {isProcessing && (
+        <div
+          role="listitem"
+          className={cn("flex flex-col relative ms-auto lg:me-28")}
+        >
+          <div className={cn("flex p-2 items-center")}>
+            <div className="flex flex-col self-start items-center space-y-2 relative">
+              <div className="relative w-9 h-9 inline-block overflow-hidden rounded me-3">
+                <Image
+                  className="rounded-full object-cover"
+                  src={user?.image || "/user_placeholder.png"}
+                  alt={"user avatar"}
+                  fill
+                  sizes="36px"
+                  quality={100}
+                />
+              </div>
+              <div className={cn("text-xs me-2")}></div>
+            </div>
+            <div
+              className={cn(
+                "relative flex flex-col gap-2 bg-blue-400 dark:bg-[#1d1d1d] min-w-[256px] w-[230px] sm:w-[300px] rounded"
+              )}
+            >
+              <div
+                className={cn(
+                  "ms-3 text-sm w-fit overflow-hidden",
+                  "mt-2 pb-2"
+                )}
+              >
+                <span className="break-word opacity-80 text-white text-md animate-pulse">
+                  {tempMessage}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="mt-24" ref={bottomRef}></div>
     </div>
   );

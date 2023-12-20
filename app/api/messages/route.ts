@@ -98,6 +98,7 @@ export async function POST(req: Request) {
     });
 
     await pusherServer.trigger(conversationId, "messages:new", message);
+    console.log("messages:new", JSON.stringify(message.body));
 
     const lastMessage =
       updatedConversation.messages[updatedConversation.messages.length - 1];

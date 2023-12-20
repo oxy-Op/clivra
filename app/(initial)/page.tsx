@@ -9,9 +9,7 @@ const IsLogged = async () => {
     return redirectToSignIn();
   }
 
-  const profile = await initialProfile();
-
-  return redirect("/chat");
+  return redirect("/landing");
 };
 
 export default IsLogged;

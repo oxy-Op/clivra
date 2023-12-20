@@ -48,17 +48,30 @@ export const GroupAddModal = () => {
       .string()
       .min(2, { message: "Group name must be at least 2 characters" })
       .max(14, { message: "Group name must be less than 14 characters" }),
-    members: z.array(group).refine(
-      (members) => {
-        if (members.length < 2) {
-          return false;
+    members: z
+      .array(group)
+      .refine(
+        (members) => {
+          if (members.length < 2) {
+            return false;
+          }
+          return true;
+        },
+        {
+          message: "Group must have at least 2 members",
         }
-        return true;
-      },
-      {
-        message: "Group must have at least 2 members",
-      }
-    ),
+      )
+      .refine(
+        (members) => {
+          if (members.length > 10) {
+            return false;
+          }
+          return true;
+        },
+        {
+          message: "Group cannot have more than 10 members",
+        }
+      ),
   });
 
   const form = useForm({

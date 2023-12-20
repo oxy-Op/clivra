@@ -39,14 +39,12 @@ const ConversationBox = ({
       return "Sent an image";
     }
 
-    if (lastMessage?.body && lastMessage.body.length < 30) {
-      return lastMessage.body;
-    } else {
-      return "Sent a message";
-    }
-
     if (data.isGroup) {
       return `Created Group`;
+    }
+
+    if (lastMessage?.body && lastMessage.body.length < 30) {
+      return lastMessage.body;
     }
 
     return "Started a conversation";

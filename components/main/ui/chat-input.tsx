@@ -13,6 +13,7 @@ import { useModal } from "@/hooks/use-modal";
 import { useRouter } from "next/navigation";
 import { cn, log } from "@/lib/utils";
 import { useState } from "react";
+import { useChatContext } from "./chat-context";
 
 const formSchema = z.object({
   content: z.string().min(1),
@@ -22,6 +23,7 @@ const ChatInput = ({ conversationId }: { conversationId: string }) => {
   const { onOpen } = useModal();
   const router = useRouter();
   const [clicked, setClicked] = useState(false);
+  const { setProcessing, setTempMessage } = useChatContext();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,6 +52,8 @@ const ChatInput = ({ conversationId }: { conversationId: string }) => {
   const loading = form.formState.isSubmitting;
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setProcessing(true);
+    setTempMessage(values.content);
     axios.post("/api/messages", {
       text: values.content,
       conversationId: conversationId,
@@ -96,6 +100,7 @@ const ChatInput = ({ conversationId }: { conversationId: string }) => {
                       className="px-20 py-6 bg-zinc-200/90 dark:bg-[#2c2c2c] border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200 overflow-y-auto ms-4 sm:ms-0"
                       type="text"
                       id="chat"
+                      autoComplete="off"
                       placeholder="Message"
                       disabled={loading}
                       {...field}

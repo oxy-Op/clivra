@@ -37,8 +37,12 @@ const NavSideBar = ({ me }: { me: User }) => {
   return (
     <nav className="hidden dark:bg-[#1d1f1f]/80 relative md:flex flex-col items-center w-[72px] h-full border p-4">
       <div className="flex flex-col space-y-4">
-        <GotoChat />
-        <GoToSearch />
+        <TooltipShow text="Go to Conversations" side="right">
+          <GotoChat />
+        </TooltipShow>
+        <TooltipShow text="Search People" side="right">
+          <GoToSearch />
+        </TooltipShow>
       </div>
       <div className="mt-auto flex flex-col space-y-4  mb-2 ">
         {/* <ModeToggle /> */}

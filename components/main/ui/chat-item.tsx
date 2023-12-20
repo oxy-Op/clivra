@@ -42,7 +42,7 @@ const ChatItem = ({
       <div
         className={cn(
           "flex p-2 items-center",
-          isMe && !image && "bg-blue-400 dark:bg-transparent rounded-sm mb-1"
+          isMe && !image && " dark:bg-transparent rounded-sm mb-1"
         )}
       >
         <div className="flex flex-col self-start items-center space-y-2 relative">
