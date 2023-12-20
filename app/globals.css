@@ -104,7 +104,8 @@ body,
   }
 
   .dark {
-    --background: 240 10% 3.9%;
+    /* --background: 240 10% 3.9%; */
+    --background: 180 3% 12%;
     --foreground: 0 0% 98%;
 
     --card: 240 10% 3.9%;

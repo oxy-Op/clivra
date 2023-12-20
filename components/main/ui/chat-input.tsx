@@ -7,7 +7,13 @@ import { EmojiPicker } from "./emoji-picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import axios from "axios";
 import { useModal } from "@/hooks/use-modal";
 import { useRouter } from "next/navigation";
@@ -16,7 +22,10 @@ import { useState } from "react";
 import { useChatContext } from "./chat-context";
 
 const formSchema = z.object({
-  content: z.string().min(1),
+  content: z
+    .string()
+    .min(1, { message: " " })
+    .max(300, { message: "Message should be less than 300 characters" }),
 });
 
 const ChatInput = ({ conversationId }: { conversationId: string }) => {
@@ -72,7 +81,7 @@ const ChatInput = ({ conversationId }: { conversationId: string }) => {
           render={({ field }) => (
             <FormItem>
               <FormControl className="w-full">
-                <div className="flex items-center justify-center mt-auto sm:mb-5 mb-8 w-full pt-5">
+                <div className="flex flex-col items-center justify-center mt-auto sm:mb-5 mb-8 w-full pt-5">
                   <div className="flex items-center justify-center mx-auto w-full p-2 md:w-[80%] relative pt-2  border-t-2 max-h-[200px] ">
                     <div className="ms-4 sm:ms-0 absolute flex items-center justify-around left-0 ">
                       <div
@@ -116,6 +125,7 @@ const ChatInput = ({ conversationId }: { conversationId: string }) => {
                       <ArrowRight className="text-white" />
                     </button>
                   </div>
+                  <FormMessage />
                 </div>
               </FormControl>
             </FormItem>
